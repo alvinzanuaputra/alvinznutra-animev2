@@ -17,7 +17,7 @@ export const AnimeList: FC<AnimeListProps> = ({ api, large }) => {
     <>
       <div
         className={cn(
-          "bg-color-primary dark:bg-color-dark grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-4 py-5",
+          "bg-color-primary dark:bg-color-dark grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 py-5",
           large ? `xl:grid-cols-6` : `xl:grid-cols-4`
         )}
       >

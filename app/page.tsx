@@ -8,17 +8,17 @@ import type { TNowAnime, TRandomAnime, TTopAnime, TUpcomingAnime } from "@/types
 import 'animate.css';
 
 export default async function Home() {
-  const topAnime: TTopAnime | null = await getAnimeResponse("top/anime", "limit=12&filter=favorite");
+  const topAnime: TTopAnime | null = await getAnimeResponse("top/anime", "limit=8&filter=favorite");
   const upcomingAnime: TUpcomingAnime | null = await getAnimeResponse(
     "seasons/upcoming",
-    "limit=10"
+    "limit=6"
   );
-  const nowAnime: TNowAnime | null = await getAnimeResponse("seasons/now", "limit=10");
+  const nowAnime: TNowAnime | null = await getAnimeResponse("seasons/now", "limit=6");
   const animeForYou: TRandomAnime | null = await getRandomAnimeResponse("random/anime");
 
   const recommendAnime: TTopAnime = await getAnimeResponse(
     "top/anime",
-    "limit=12&filter=bypopularity"
+    "limit=8&filter=bypopularity"
   );
 
   return (

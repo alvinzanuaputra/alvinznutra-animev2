@@ -63,13 +63,12 @@ const AnimeDetail = ({ dataAnime }: { dataAnime: TFullAnime }) => {
           <YouTube
             className=""
             videoId={dataAnime?.data?.trailer?.youtube_id}
-            onReady={(event) => {
-              event.target.pauseVideo();
+            onReady={(event: YouTubeEvent) => {
+              event.target?.pauseVideo();
             }}
             opts={option}
             onError={() => alert("Video ini tidak tersedia lagi !")}
           />
-
         </div>
         <HeroSmall title={dataAnime.data.title} genres={dataAnime.data.genres} />
         <div className="flex flex-rows-2 text-color-primary bg-color-white dark:bg-color-dark px-4 py-6 lg:py-8">

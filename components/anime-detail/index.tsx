@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -8,17 +8,14 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import type { TFullAnime } from "@/types";
 import 'animate.css';
 import { HeroSmall } from "../layout/hero-small";
-// import Youtubeplay from "./yotube";
-import dynamic from 'next/dynamic';
+import Youtubeplay from "./yotube";
 
 
 const AnimeDetail = ({ dataAnime }: { dataAnime: TFullAnime }) => {
   let arrayPath;
   const path = usePathname();
   arrayPath = path.split("/").filter(Boolean);
-  const DynamicYoutubeplay = dynamic(() => import('@/components/anime-detail/yotube'), {
-    ssr: false
-  });
+
   return (
     <>
       <div className="bg-color-primary dark:bg-color-hitam text-left overflow-x-hidden animate__animated animate__fadeInUp animate__delay-0.3s">
@@ -34,9 +31,8 @@ const AnimeDetail = ({ dataAnime }: { dataAnime: TFullAnime }) => {
         </div>
         <div className="flex py-4 justify-center">
 
-          {/* lagi fix ini  */}
-          {/* <Youtubeplay dataAnime={dataAnime} /> */}
-          <DynamicYoutubeplay dataAnime={dataAnime} />
+{/* lagi fix ini */}
+          <Youtubeplay dataAnime={dataAnime} />
 
 
         </div>

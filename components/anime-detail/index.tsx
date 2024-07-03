@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,7 +12,6 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import type { TFullAnime } from "@/types";
 import 'animate.css';
 import { HeroSmall } from "../layout/hero-small";
-import { MouseEvent } from 'react';
 
 
 
@@ -56,14 +56,14 @@ const AnimeDetail = ({ dataAnime }: { dataAnime: TFullAnime }) => {
 
 
         <div className="gap-2 mx-8">
-          <button className="mt-4 px-4 text-color-hitam dark:text-color-white bg-color-primary dark:bg-color-hitam">Trailer ...</button>
+          <p className="mt-4 px-4 text-color-hitam dark:text-color-white bg-color-primary dark:bg-color-hitam">Trailer ...</p>
 
         </div>
         <div className="flex py-4 justify-center">
           <YouTube
             className=""
             videoId={dataAnime.data.trailer.youtube_id}
-            onReady={(event: any) => event.target.pauseVideo()}
+            onReady={(event) => event.target.pauseVideo()}
             opts={options}
             onError={() => alert("Video ini tidak tersedia lagi !")}
           />

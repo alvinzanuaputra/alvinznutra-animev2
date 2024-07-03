@@ -7,13 +7,10 @@ import YouTube from "react-youtube";
 import { usePathname } from "next/navigation";
 import { Star } from "@/components/ui/star";
 import { Card } from "@/components/ui/card";
-// import { Separator } from "@/components/ui/separator";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
+import { HeroSmall } from "../layout/hero-small";
 import type { TFullAnime } from "@/types";
 import 'animate.css';
-import { HeroSmall } from "../layout/hero-small";
-
-
 
 const AnimeDetail = ({ dataAnime }: { dataAnime: TFullAnime }) => {
   let arrayPath;
@@ -61,7 +58,6 @@ const AnimeDetail = ({ dataAnime }: { dataAnime: TFullAnime }) => {
         </div>
         <div className="flex py-4 justify-center">
           <YouTube
-            className=""
             videoId={dataAnime.data.trailer.youtube_id}
             onReady={(event) => event.target.pauseVideo()}
             opts={options}

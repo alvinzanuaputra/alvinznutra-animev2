@@ -1,0 +1,135 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+  // Use 'library' or 'binary'
+  engineType = "binary"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // directUrl = env("DIRECT_DATABASE_URL")
+}
+
+model Collection {
+  id              Int     @id @default(autoincrement())
+  anime_mal_id    String
+  anime_image_url String?
+  anime_title     String?
+  user_email      String
+
+  @@unique([anime_mal_id, user_email])
+}
+
+model Comment {
+  id           Int      @id @default(autoincrement())
+  anime_mal_id String
+  anime_title  String
+  user_email   String
+  username     String
+  user_image   String?
+  comment      String
+  rating       Int
+  createdAt    DateTime @default(now())
+}
+
+model MangaCollection {
+  id         Int     @id @default(autoincrement())
+  mal_id     String
+  image_url  String?
+  title      String?
+  user_email String
+
+  @@unique([mal_id, user_email])
+}
+
+model MangaComment {
+  id         Int      @id @default(autoincrement())
+  mal_id     String
+  title      String
+  user_email String
+  username   String
+  user_image String?
+  comment    String
+  rating     Int
+  createdAt  DateTime @default(now())
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // This is your Prisma schema file,
+// // learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// generator client {
+//   provider = "prisma-client-js"
+// }
+
+// datasource db {
+//   // provider = "mysql"
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+//   // directUrl = env("DIRECT_DATABASE_URL")
+// }
+
+// model Collection {
+//   id              Int     @id @default(autoincrement())
+//   anime_mal_id    String
+//   anime_image_url String?
+//   anime_title     String?
+//   user_email      String
+
+//   @@unique([anime_mal_id, user_email])
+// }
+
+// model Comment {
+//   id           Int      @id @default(autoincrement())
+//   anime_mal_id String
+//   anime_title  String
+//   user_email   String
+//   username     String
+//   user_image   String?
+//   comment      String
+//   rating       Int
+//   createdAt    DateTime @default(now())
+// }
+
+// model MangaCollection {
+//   id         Int     @id @default(autoincrement())
+//   mal_id     String
+//   image_url  String?
+//   title      String?
+//   user_email String
+
+//   @@unique([mal_id, user_email])
+// }
+
+// model MangaComment {
+//   id         Int      @id @default(autoincrement())
+//   mal_id     String
+//   title      String
+//   user_email String
+//   username   String
+//   user_image String?
+//   comment    String
+//   rating     Int
+//   createdAt  DateTime @default(now())
+// }

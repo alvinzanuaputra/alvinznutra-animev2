@@ -3,16 +3,14 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-// import YouTube from "react-youtube";
 import { usePathname } from "next/navigation";
 import { Star } from "@/components/ui/star";
 import { Card } from "@/components/ui/card";
-// import { Separator } from "@/components/ui/separator";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import type { TFullAnime } from "@/types";
 import 'animate.css';
 import { HeroSmall } from "../layout/hero-small";
-import YouTube, { YouTubeEvent } from 'react-youtube';
+import YouTube from 'react-youtube';
 
 
 
@@ -38,11 +36,10 @@ const AnimeDetail = ({ dataAnime }: { dataAnime: TFullAnime }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
 
-  const option = {
-    width: isMobile ? "auto" : isTablet ? "1024" : "1200",
-    height: isMobile ? "360" : isTablet ? "768" : "640",
-  };
-
+  // const option = {
+  //   width: isMobile ? "auto" : isTablet ? "1024" : "1200",
+  //   height: isMobile ? "360" : isTablet ? "768" : "640",
+  // };
 
   return (
     <>
@@ -53,20 +50,21 @@ const AnimeDetail = ({ dataAnime }: { dataAnime: TFullAnime }) => {
             <Breadcrumb path={arrayPath} page={dataAnime.data.title} />
           </div>
         </Card>
-
-
         <div className="gap-2 mx-8">
           <h2 className="mt-4 px-4 text-color-hitam dark:text-color-white bg-color-primary dark:bg-color-hitam">Trailer ...</h2>
 
         </div>
         <div className="flex py-4 justify-center">
           <YouTube
-            className=""
+            // className="w-full"
             videoId={dataAnime?.data?.trailer?.youtube_id}
-            onReady={(event: YouTubeEvent) => {
-              event.target?.pauseVideo();
-            }}
-            opts={option}
+            onReady={(event) => event.target.pauseVideo()}
+            opts={
+              {
+                width: isMobile ? "auto" : isTablet ? "1024" : "1200",
+                height: isMobile ? "360" : isTablet ? "768" : "640",
+              }
+            }
             onError={() => alert("Video ini tidak tersedia lagi !")}
           />
         </div>

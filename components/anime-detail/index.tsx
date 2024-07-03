@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -8,7 +8,7 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import type { TFullAnime } from "@/types";
 import 'animate.css';
 import { HeroSmall } from "../layout/hero-small";
-import Youtubeplay from "./yotube";
+// import Youtubeplay from "./yotube";
 import dynamic from 'next/dynamic';
 
 

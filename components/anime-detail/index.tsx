@@ -8,7 +8,6 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import type { TFullAnime } from "@/types";
 import 'animate.css';
 import { HeroSmall } from "../layout/hero-small";
-import YouTube from "react-youtube";
 import Youtubeplay from "./yotube";
 
 
@@ -31,7 +30,11 @@ const AnimeDetail = ({ dataAnime }: { dataAnime: TFullAnime }) => {
 
         </div>
         <div className="flex py-4 justify-center">
+
+{/* lagi fix ini  */}
           <Youtubeplay dataAnime={dataAnime} />
+
+
         </div>
         <HeroSmall title={dataAnime.data.title} genres={dataAnime.data.genres} />
         <div className="flex flex-rows-2 text-color-primary bg-color-white dark:bg-color-dark px-4 py-6 lg:py-8">

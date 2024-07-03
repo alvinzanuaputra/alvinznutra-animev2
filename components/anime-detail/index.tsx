@@ -11,6 +11,7 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import type { TFullAnime } from "@/types";
 import 'animate.css';
 import { HeroSmall } from "../layout/hero-small";
+import { MouseEvent } from 'react';
 
 
 
@@ -62,7 +63,7 @@ const AnimeDetail = ({ dataAnime }: { dataAnime: TFullAnime }) => {
           <YouTube
             className=""
             videoId={dataAnime.data.trailer.youtube_id}
-            onReady={(event) => event.target.pauseVideo()}
+            onReady={(event: any) => event.target.pauseVideo()}
             opts={options}
             onError={() => alert("Video ini tidak tersedia lagi !")}
           />

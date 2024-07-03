@@ -38,14 +38,11 @@ const AnimeDetail = ({ dataAnime }: { dataAnime: TFullAnime }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
 
-  const options = {
+  const option = {
     width: isMobile ? "auto" : isTablet ? "1024" : "1200",
     height: isMobile ? "360" : isTablet ? "768" : "640",
   };
 
-  const handleReady = (event: YouTubeEvent) => {
-    event.target.pauseVideo();
-  };
 
   return (
     <>
@@ -54,7 +51,6 @@ const AnimeDetail = ({ dataAnime }: { dataAnime: TFullAnime }) => {
         <Card className="py-2 min-h-full w-full justify-between col-span-1">
           <div className="mx-8">
             <Breadcrumb path={arrayPath} page={dataAnime.data.title} />
-
           </div>
         </Card>
 
@@ -66,11 +62,14 @@ const AnimeDetail = ({ dataAnime }: { dataAnime: TFullAnime }) => {
         <div className="flex py-4 justify-center">
           <YouTube
             className=""
-            videoId={dataAnime.data.trailer.youtube_id}
-            onReady={handleReady}
-            opts={options}
+            videoId={dataAnime?.data?.trailer?.youtube_id}
+            onReady={(event) => {
+              event.target.pauseVideo();
+            }}
+            opts={option}
             onError={() => alert("Video ini tidak tersedia lagi !")}
           />
+
         </div>
         <HeroSmall title={dataAnime.data.title} genres={dataAnime.data.genres} />
         <div className="flex flex-rows-2 text-color-primary bg-color-white dark:bg-color-dark px-4 py-6 lg:py-8">

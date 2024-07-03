@@ -27,7 +27,7 @@ const UnAuthorized = () => {
           <IoWarning className="text-5xl mx-auto" />
           <h1 className="text-4xl font-bold">Maaf !!</h1>
           <p className="text-xl font-medium mt-2 text-center">
-            Kamu{""}belum tidak memiliki izin untuk mengakses halaman ini, silakan masuk terlebih dahulu !
+            Kamu {" "}tidak memiliki izin untuk mengakses halaman ini, silakan masuk terlebih dahulu !
           </p>
           <div className="w-full sm:w-[50dvh]">
             <LoginDialog

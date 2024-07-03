@@ -64,7 +64,7 @@ const AnimeDetail = ({ dataAnime }: { dataAnime: TFullAnime }) => {
             videoId={dataAnime.data.trailer.youtube_id}
             onReady={(event) => event.target.pauseVideo()}
             opts={options}
-          // onError={() => alert("Video ini tidak tersedia lagi !")}
+            onError={() => alert("Video ini tidak tersedia lagi !")}
           />
         </div>
         <HeroSmall title={dataAnime.data.title} genres={dataAnime.data.genres} />
@@ -179,10 +179,10 @@ const AnimeDetail = ({ dataAnime }: { dataAnime: TFullAnime }) => {
               {dataAnime.data.producers.map((producer, index) => (
                 <li key={index} className="list-inside">
                   {producer.name ? (
-              producer.name
-            ) : (
-              "Belum tersedia"
-            )}
+                    producer.name
+                  ) : (
+                    "Belum tersedia"
+                  )}
                 </li>
               ))}
             </ol>

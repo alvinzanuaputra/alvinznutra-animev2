@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import YouTube from "react-youtube";
+// import YouTube from "react-youtube";
 import { usePathname } from "next/navigation";
 import { Star } from "@/components/ui/star";
 import { Card } from "@/components/ui/card";
@@ -12,6 +12,7 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import type { TFullAnime } from "@/types";
 import 'animate.css';
 import { HeroSmall } from "../layout/hero-small";
+import YouTube, { YouTubeEvent } from 'react-youtube';
 
 
 
@@ -42,6 +43,9 @@ const AnimeDetail = ({ dataAnime }: { dataAnime: TFullAnime }) => {
     height: isMobile ? "360" : isTablet ? "768" : "640",
   };
 
+  const handleReady = (event: YouTubeEvent) => {
+    event.target.pauseVideo();
+  };
 
   return (
     <>
@@ -63,7 +67,7 @@ const AnimeDetail = ({ dataAnime }: { dataAnime: TFullAnime }) => {
           <YouTube
             className=""
             videoId={dataAnime.data.trailer.youtube_id}
-            onReady={(event) => event.target.pauseVideo()}
+            onReady={handleReady}
             opts={options}
             onError={() => alert("Video ini tidak tersedia lagi !")}
           />

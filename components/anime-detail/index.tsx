@@ -1,6 +1,4 @@
 "use client";
-
-import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -10,36 +8,14 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import type { TFullAnime } from "@/types";
 import 'animate.css';
 import { HeroSmall } from "../layout/hero-small";
-import YouTube from 'react-youtube';
-
+import YouTube from "react-youtube";
+import Youtubeplay from "./yotube";
 
 
 const AnimeDetail = ({ dataAnime }: { dataAnime: TFullAnime }) => {
   let arrayPath;
   const path = usePathname();
   arrayPath = path.split("/").filter(Boolean);
-
-
-  useEffect(() => {
-    updateMediaQuery();
-    window.addEventListener("resize", updateMediaQuery);
-    return () => {
-      window.removeEventListener("resize", updateMediaQuery);
-    };
-  }, []);
-
-
-  const updateMediaQuery = () => {
-    setIsMobile(window.innerWidth <= 768);
-    setIsTablet(window.innerWidth > 768 && window.innerWidth <= 1200);
-  };
-  const [isMobile, setIsMobile] = useState(false);
-  const [isTablet, setIsTablet] = useState(false);
-
-  // const option = {
-  //   width: isMobile ? "auto" : isTablet ? "1024" : "1200",
-  //   height: isMobile ? "360" : isTablet ? "768" : "640",
-  // };
 
   return (
     <>
@@ -55,18 +31,7 @@ const AnimeDetail = ({ dataAnime }: { dataAnime: TFullAnime }) => {
 
         </div>
         <div className="flex py-4 justify-center">
-          <YouTube
-            // className="w-full"
-            videoId={dataAnime?.data?.trailer?.youtube_id}
-            onReady={(event) => event.target.pauseVideo()}
-            opts={
-              {
-                width: isMobile ? "auto" : isTablet ? "1024" : "1200",
-                height: isMobile ? "360" : isTablet ? "768" : "640",
-              }
-            }
-            onError={() => alert("Video ini tidak tersedia lagi !")}
-          />
+          <Youtubeplay dataAnime={dataAnime} />
         </div>
         <HeroSmall title={dataAnime.data.title} genres={dataAnime.data.genres} />
         <div className="flex flex-rows-2 text-color-primary bg-color-white dark:bg-color-dark px-4 py-6 lg:py-8">

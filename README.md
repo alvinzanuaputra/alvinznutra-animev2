@@ -1,17 +1,21 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## VIEW THIS PROJECT WEBSITE 
+
+![Screenshot 2024-07-03 131609](https://github.com/alvinzanuaputra/alvinznutra-animev2/assets/140075243/03cea870-05cb-49ef-8e65-942b4a6d8937)
+
+
+
 ## Getting Started
 
 First, run the development server:
 
 ```bash
+npm i
+# and
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# and
+npm install animate.css
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

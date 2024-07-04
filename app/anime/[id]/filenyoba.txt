@@ -17,13 +17,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
     const id = params.id;
     const dataAnime = await getAnimeFullById(id);
-
-    if (!dataAnime.data) {
-      throw new Error("Anime data is missing");
-    }
-
     return {
-      title: dataAnime.data.title || "Anime",
+      title: dataAnime.data?.title || "Anime",
     };
   } catch (error) {
     console.error("Error generating metadata:", error);
@@ -43,22 +38,22 @@ const Anime = async ({ params }: { params: { id: string } }) => {
     }
 
     const data = {
-      user_email: user?.email || "",
+      user_email: user?.email as string,
       anime_mal_id: params.id,
-      anime_image_url: dataAnime.data.images?.webp?.large_image_url || "",
-      anime_title: dataAnime.data.title || "",
+      anime_image_url: dataAnime.data.images.webp.large_image_url,
+      anime_title: dataAnime.data.title,
     };
 
     const dataComment = {
-      username: user?.name || "",
-      user_email: user?.email || "",
-      user_image: user?.image || "",
+      username: user?.name as string,
+      user_email: user?.email as string,
+      user_image: user?.image as string,
       anime_mal_id: params.id,
-      anime_title: dataAnime.data.title || "",
+      anime_title: dataAnime.data.title,
     };
 
     const collection = await prisma.collection.findFirst({
-      where: { user_email: user?.email || "", anime_mal_id: params.id },
+      where: { user_email: user?.email as string, anime_mal_id: params.id },
     });
 
     return (

@@ -14,71 +14,47 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  try {
-    const id = params.id;
-    const dataAnime = await getAnimeFullById(id);
+  const id = params.id;
+  const dataAnime = await getAnimeFullById(id);
 
-    if (!dataAnime.data) {
-      throw new Error("Anime data is missing");
-    }
-
-    return {
-      title: dataAnime.data.title || "Anime",
-    };
-  } catch (error) {
-    console.error("Error generating metadata:", error);
-    return {
-      title: "Anime",
-    };
-  }
+  return {
+    title: dataAnime.data?.title || "Anime",
+  };
 }
 
 const Anime = async ({ params }: { params: { id: string } }) => {
-  try {
-    const dataAnime: TFullAnime = await getAnimeFullById(params.id);
-    const user = await authUserSession();
+  const dataAnime: TFullAnime = await getAnimeFullById(params.id);
+  const user = await authUserSession();
 
-    if (!dataAnime || !dataAnime.data) {
-      throw new Error("Anime data not found");
-    }
+  const data = {
+    user_email: user?.email || "",
+    anime_mal_id: params.id,
+    anime_image_url: dataAnime.data.images.webp.large_image_url,
+    anime_title: dataAnime.data.title,
+  };
 
-    const data = {
-      user_email: user?.email || "",
-      anime_mal_id: params.id,
-      anime_image_url: dataAnime.data.images?.webp?.large_image_url || "",
-      anime_title: dataAnime.data.title || "",
-    };
+  const dataComment = {
+    username: user?.name || "",
+    user_email: user?.email || "",
+    user_image: user?.image || "",
+    anime_mal_id: params.id,
+    anime_title: dataAnime.data.title,
+  };
 
-    const dataComment = {
-      username: user?.name || "",
-      user_email: user?.email || "",
-      user_image: user?.image || "",
-      anime_mal_id: params.id,
-      anime_title: dataAnime.data.title || "",
-    };
+  const collection = await prisma.collection.findFirst({
+    where: { user_email: user?.email || "", anime_mal_id: params.id },
+  });
 
-    const collection = await prisma.collection.findFirst({
-      where: { user_email: user?.email || "", anime_mal_id: params.id },
-    });
-
-    return (
-      <div className="">
-        <section className="rounded-md pt-2 px-2 pb-2 md:px-10 bg-color-white dark:bg-color-dark dark:text-color-primary text-color-hitam">
-          {user && !collection && <ButtonAddCollection data={data} />}
-          <AnimeDetail dataAnime={dataAnime} />
-          {user && <CommentInput data={dataComment} />}
-          <CommentSection anime_mal_id={params.id} />
-        </section>
-      </div>
-    );
-  } catch (error) {
-    console.error("Error rendering Anime component:", error);
-    return (
-      <div className="error">
-        <p>Terjadi kesalahan saat memuat data anime. Silakan coba lagi nanti.</p>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <section className="rounded-md pt-2 px-2 pb-2 md:px-10 bg-color-white dark:bg-color-dark dark:text-color-primary text-color-hitam">
+        {user && !collection && <ButtonAddCollection data={data} />}
+        <AnimeDetail dataAnime={dataAnime} />
+        {user && <CommentInput data={dataComment} />}
+        <CommentSection anime_mal_id={params.id} />
+      </section>
+    </div>
+  );
 };
 
 export default Anime;

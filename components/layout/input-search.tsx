@@ -100,6 +100,7 @@ export const InputSearch = () => {
           </button>
         </Input>
       </form>
+  
       <DropdownContentSearch
         state={dropdownContent}
         setDropdownContent={setDropdownContent}
@@ -109,6 +110,7 @@ export const InputSearch = () => {
         isLoading={isLoading}
         query={query}
       />
+  
     </div>
   );
 };

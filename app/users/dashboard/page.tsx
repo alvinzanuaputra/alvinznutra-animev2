@@ -17,8 +17,8 @@ const Dashboard = async (props: Props) => {
   return (
     <div className="animate__animated animate__fadeInUp animate__delay-0.3s">
 
-      <div className="flex items-center text-xs border-color-third border mx-4">
-        <p className="mx-2 py-2">Hallo selamat datang kembali <span className="text-color-accent font-serif font-bold">&quot;{user?.name}&quot; </span> </p>
+      <div className="flex items-center text-xs border-color-third border px-4">
+        <p className="px-2 py-2">Hallo selamat datang kembali <span className="text-color-accent font-serif font-bold">&quot;{user?.name}&quot; </span> </p>
       </div>
 
       <div className="absolute mx-32 pt-4">

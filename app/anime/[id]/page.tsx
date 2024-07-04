@@ -1,3 +1,5 @@
+// "use client"
+
 import { Metadata } from "next";
 import AnimeDetail from "@/components/anime-detail";
 import prisma from "@/lib/prisma";
@@ -6,6 +8,8 @@ import { authUserSession } from "@/lib/utils";
 import { ButtonAddCollection } from "@/components/layout/button-add-collection";
 import { CommentSection } from "@/components/layout/comment-section";
 import { CommentInput } from "@/components/layout/comment-input";
+import { useRouter } from 'next/router';
+
 
 import type { TFullAnime } from "@/types";
 type Props = {
@@ -26,6 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const Anime = async ({ params }: { params: { id: string } }) => {
+  // const router = useRouter();
   const dataAnime: TFullAnime = await getAnimeFullById(params.id);
   const user = await authUserSession();
   const data = {
@@ -47,10 +52,18 @@ const Anime = async ({ params }: { params: { id: string } }) => {
     where: { user_email: user?.email as string, anime_mal_id: params.id },
   });
 
+
+  // if (!dataAnime || !user) {
+  //   // Redirect to error page or another page
+  //   router.push('/error-page'); // Adjust the path as per your application structure
+  //   return null; // Or render loading state or error message
+  // }
+
   return (
     <div className="">
       <section className="rounded-md pt-2 px-2 pb-2 md:px-10 bg-color-white dark:bg-color-dark dark:text-color-primary text-color-hitam">
         {user && !collection && <ButtonAddCollection data={data} />}
+
         <AnimeDetail dataAnime={dataAnime} />
         {user && <CommentInput data={dataComment} />}
         <CommentSection anime_mal_id={params.id} />

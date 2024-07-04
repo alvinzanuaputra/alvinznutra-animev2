@@ -6,16 +6,16 @@ export const Footer: FC = () => {
   return (
     <div className="animate__animated animate__fadeInLeft animate__delay-1s pb-6 gap-10 bg-color-white dark:bg-color-hitam shadow-lg shadow-color-hitam dark:shadow-color-dark pt-8">
 
-      <div className="flex flex-wrap  pb-6">
+      <div className="flex flex-wrap mt-4 pb-6">
         <div className="mx-6 lg:flex flex-rows-4">
 
           <div className="w-full px-4 mb-2">
             <h2 className="font-bold text-3xl text-color-accent mb-5 mt-2"
               style={{
-                fontStyle: "italic"
+                fontStyle: "bold"
               }}
             >ZNUANIME</h2>
-            <p className="text-xs font-semibold text-color-hitam dark:text-color-primary grid mb-16 md:w-1/4 lg:w-1/2">
+            <p className="text-xs text-color-hitam dark:text-color-primary grid mb-16 md:w-1/4 lg:w-1/2">
 
               ZNUAVIN, menjadi destinasi utama bagi penggemar anime di Indonesia. Menyajikan list anime, ZNUAVIN berkomitmen memberikan akses tanpa batas kepada para pecinta anime.  ZNUAVIN hadir untuk memenuhi kebutuhan hiburan anime tanpa biaya berlangganan, seperti Netflix, Disney+, HBO, Apple TV+, dan Amazon Prime Video.
 
@@ -71,8 +71,8 @@ export const Footer: FC = () => {
 
       <div className="lg:w-full lg:flex flex-cols-1">
         <div className="justify-items-start mt-1 lg:w-full lg:flex lg:mt-10 lg:justify-between">
-          <h1 className="mx-10 mt-2 font-semibold text-color-hitam dark:text-color-primary text-sm pb-3 border-t-color-accent">
-            Copyright © 2024 by <a href="/"><span className="font-bold text-color-hitam dark:text-color-accent hover:text-color-primary">ZNUANIME</span></a>. All Rights Reserved.
+          <h1 className="italic mx-10 mt-2  text-color-hitam dark:text-color-primary text-sm pb-3 border-t-color-accent">
+            Copyright © 2024 by <a href="/"><span className=" text-color-hitam dark:text-color-accent hover:text-color-primary">ZNUANIME</span></a>. All Rights Reserved.
           </h1>
           <div className="ml-10 lg:flex items-end gap-2 flex flex-cols-5 pb-2">
             <a href="https://www.linkedin.com/in/alvin-zanua-putra-34a758288"

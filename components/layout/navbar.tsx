@@ -36,30 +36,30 @@ export const Navbar: FC = () => {
           <ul className="block md:flex space-x-2 space-y-4 mb-4 md:mb-0 md:space-y-0 md:space-x-5">
             <li>
               <DropdownMenu>
-                <DropdownMenuTrigger className="ps-2 flex items-center outline-none  hover:text-color-accent hover:underline transition-all duration-500">
+                <DropdownMenuTrigger className="ps-2 flex items-center outline-none  hover:text-color-accent transition-all duration-500">
                   <span className="animate__animated animate__fadeInUp animate__delay-2s">Selebihnya</span>
                   <ChevronDown className="ml-1 animate__animated animate__bounceIn animate__delay-1s" size={16} />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56 ">
                   <Link href="/anime/top">
-                    <DropdownMenuItem className=" hover:text-color-accent hover:underline transition-all duration-500 animate__animated animate__fadeInDown animate__delay-0.1s">Anime Terpopuler</DropdownMenuItem>
+                    <DropdownMenuItem className=" hover:text-color-accent transition-all duration-500 animate__animated animate__fadeInDown animate__delay-0.1s">Anime Terpopuler</DropdownMenuItem>
                   </Link>
                   <Link href="/manga/top">
-                    <DropdownMenuItem className="hover:text-color-accent hover:underline transition-all duration-500 animate__animated animate__fadeInDown animate__delay-0.2s">Manga Terpopuler</DropdownMenuItem>
+                    <DropdownMenuItem className="hover:text-color-accent transition-all duration-500 animate__animated animate__fadeInDown animate__delay-0.2s">Manga Terpopuler</DropdownMenuItem>
                   </Link>
                   <Link href="/anime/recommendations">
-                    <DropdownMenuItem className="hover:text-color-accent hover:underline transition-all duration-500 animate__animated animate__fadeInDown animate__delay-0.3s">Rekomendasi Anime</DropdownMenuItem>
+                    <DropdownMenuItem className="hover:text-color-accent transition-all duration-500 animate__animated animate__fadeInDown animate__delay-0.3s">Rekomendasi Anime</DropdownMenuItem>
                   </Link>
                 </DropdownMenuContent>
               </DropdownMenu>
             </li>
             <li>
-              <Link href="/anime" className=" hover:text-color-accent hover:underline transition-all duration-500 animate__animated animate__fadeInDown animate__delay-1.5s">
+              <Link href="/anime" className=" hover:text-color-accent transition-all duration-500 animate__animated animate__fadeInDown animate__delay-1.5s">
                 Anime
               </Link>
             </li>
             <li>
-              <Link href="/manga" className=" hover:text-color-accent hover:underline transition-all duration-500 animate__animated animate__fadeInUp animate__delay-1s">
+              <Link href="/manga" className=" hover:text-color-accent transition-all duration-500 animate__animated animate__fadeInUp animate__delay-1s">
                 Manga
               </Link>
             </li>

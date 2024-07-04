@@ -41,12 +41,12 @@ export const DropdownContentSearch = ({
   }, [state, dropdownRef, setDropdownContent]);
 
   return (
-    <div className="absolute" style={{ zIndex: 9999 }}>
+    <div className="absolute mt-2 left-1 lg:left-48 sm:left-6 w-1/2 " style={{ zIndex: 9999 }}>
   <div
     data-loading={isLoading}
     ref={dropdownRef}
     data-state={state}
-    className="absolute border overflow-hidden text-base rounded p-3 pe-0 py-1 z-50 md:-right-[16dvh] lg:-right-[34dvh] top-1 w-[35dvh] sm:w-[40dvh] md:w-[50dvh] data-[loading=true]:h-auto data-[loading=false]:h-[60dvh] origin-top transition-all
+    className="absolute px-4 border overflow-hidden text-base rounded p-3 pe-0 py-1 z-50 md:-right-[16dvh] lg:-right-[34dvh] top-1 w-[35dvh] sm:w-[40dvh] md:w-[50dvh] data-[loading=true]:h-auto data-[loading=false]:h-[60dvh] origin-top transition-all
       data-[state=open]:block data-[state=closed]:hidden data-[state=open]:animate-in data-[state=closed]:animate-out
       data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95
       text-color-dark dark:text-color-primary bg-color-primary dark:bg-color-hitam border-color-dark dark:border-color-secondary duration-500"
@@ -54,7 +54,7 @@ export const DropdownContentSearch = ({
     <div
       data-loading={isLoading}
       className="flex flex-col overflow-y-auto scroll-ml-10 data-[loading=true]:h-[10dvh] h-[54dvh]"
-      style={{ zIndex: 9998 }} // Adjust the z-index of this child
+      style={{ zIndex: 9999 }} // Adjust the z-index of this child
     >
           {dataAnime && (
             <div className="flex flex-col gap-2 my-1">

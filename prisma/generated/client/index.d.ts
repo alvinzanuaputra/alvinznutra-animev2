@@ -49,8 +49,8 @@ export type MangaComment = $Result.DefaultSelection<Prisma.$MangaCommentPayload>
  * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
  */
 export class PrismaClient<
-  ClientOptions extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
-  U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
+  T extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
+  U = 'log' extends keyof T ? T['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<T['log']> : never : never,
   ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs
 > {
   [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] }
@@ -70,7 +70,7 @@ export class PrismaClient<
    * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
    */
 
-  constructor(optionsArg ?: Prisma.Subset<ClientOptions, Prisma.PrismaClientOptions>);
+  constructor(optionsArg ?: Prisma.Subset<T, Prisma.PrismaClientOptions>);
   $on<V extends (U | 'beforeExit')>(eventType: V, callback: (event: V extends 'query' ? Prisma.QueryEvent : V extends 'beforeExit' ? () => $Utils.JsPromise<void> : Prisma.LogEvent) => void): void;
 
   /**
@@ -154,7 +154,7 @@ export class PrismaClient<
   $transaction<R>(fn: (prisma: Omit<PrismaClient, runtime.ITXClientDenyList>) => $Utils.JsPromise<R>, options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<R>
 
 
-  $extends: $Extensions.ExtendsHook<"extends", Prisma.TypeMapCb, ExtArgs>
+  $extends: $Extensions.ExtendsHook<'extends', Prisma.TypeMapCb, ExtArgs>
 
       /**
    * `prisma.collection`: Exposes CRUD operations for the **Collection** model.
@@ -252,7 +252,7 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 5.16.1
+   * Prisma Client JS version: 5.9.1
    * Query Engine version: 34ace0eb2704183d2c05b60b52fba5c43c13f303
    */
   export type PrismaVersion = {
@@ -380,11 +380,6 @@ export namespace Prisma {
     include: any
   }
 
-  type SelectAndOmit = {
-    select: any
-    omit: any
-  }
-
   /**
    * Get the type of the value, that the Promise holds.
    */
@@ -433,9 +428,7 @@ export namespace Prisma {
   } &
     (T extends SelectAndInclude
       ? 'Please either choose `select` or `include`.'
-      : T extends SelectAndOmit
-        ? 'Please either choose `select` or `omit`.'
-        : {})
+      : {})
 
   /**
    * Subset + Intersection
@@ -685,82 +678,79 @@ export namespace Prisma {
     db?: Datasource
   }
 
-  interface TypeMapCb extends $Utils.Fn<{extArgs: $Extensions.InternalArgs, clientOptions: PrismaClientOptions }, $Utils.Record<string, any>> {
-    returns: Prisma.TypeMap<this['params']['extArgs'], this['params']['clientOptions']>
+
+  interface TypeMapCb extends $Utils.Fn<{extArgs: $Extensions.InternalArgs}, $Utils.Record<string, any>> {
+    returns: Prisma.TypeMap<this['params']['extArgs']>
   }
 
-  export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
+  export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: "collection" | "comment" | "mangaCollection" | "mangaComment"
+      modelProps: 'collection' | 'comment' | 'mangaCollection' | 'mangaComment'
       txIsolationLevel: Prisma.TransactionIsolationLevel
-    }
+    },
     model: {
       Collection: {
         payload: Prisma.$CollectionPayload<ExtArgs>
         fields: Prisma.CollectionFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.CollectionFindUniqueArgs<ExtArgs>
+            args: Prisma.CollectionFindUniqueArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$CollectionPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.CollectionFindUniqueOrThrowArgs<ExtArgs>
+            args: Prisma.CollectionFindUniqueOrThrowArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$CollectionPayload>
           }
           findFirst: {
-            args: Prisma.CollectionFindFirstArgs<ExtArgs>
+            args: Prisma.CollectionFindFirstArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$CollectionPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.CollectionFindFirstOrThrowArgs<ExtArgs>
+            args: Prisma.CollectionFindFirstOrThrowArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$CollectionPayload>
           }
           findMany: {
-            args: Prisma.CollectionFindManyArgs<ExtArgs>
+            args: Prisma.CollectionFindManyArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$CollectionPayload>[]
           }
           create: {
-            args: Prisma.CollectionCreateArgs<ExtArgs>
+            args: Prisma.CollectionCreateArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$CollectionPayload>
           }
           createMany: {
-            args: Prisma.CollectionCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.CollectionCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CollectionPayload>[]
+            args: Prisma.CollectionCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
           }
           delete: {
-            args: Prisma.CollectionDeleteArgs<ExtArgs>
+            args: Prisma.CollectionDeleteArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$CollectionPayload>
           }
           update: {
-            args: Prisma.CollectionUpdateArgs<ExtArgs>
+            args: Prisma.CollectionUpdateArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$CollectionPayload>
           }
           deleteMany: {
-            args: Prisma.CollectionDeleteManyArgs<ExtArgs>
-            result: BatchPayload
+            args: Prisma.CollectionDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
           }
           updateMany: {
-            args: Prisma.CollectionUpdateManyArgs<ExtArgs>
-            result: BatchPayload
+            args: Prisma.CollectionUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
           }
           upsert: {
-            args: Prisma.CollectionUpsertArgs<ExtArgs>
+            args: Prisma.CollectionUpsertArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$CollectionPayload>
           }
           aggregate: {
-            args: Prisma.CollectionAggregateArgs<ExtArgs>
+            args: Prisma.CollectionAggregateArgs<ExtArgs>,
             result: $Utils.Optional<AggregateCollection>
           }
           groupBy: {
-            args: Prisma.CollectionGroupByArgs<ExtArgs>
+            args: Prisma.CollectionGroupByArgs<ExtArgs>,
             result: $Utils.Optional<CollectionGroupByOutputType>[]
           }
           count: {
-            args: Prisma.CollectionCountArgs<ExtArgs>
+            args: Prisma.CollectionCountArgs<ExtArgs>,
             result: $Utils.Optional<CollectionCountAggregateOutputType> | number
           }
         }
@@ -770,67 +760,63 @@ export namespace Prisma {
         fields: Prisma.CommentFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.CommentFindUniqueArgs<ExtArgs>
+            args: Prisma.CommentFindUniqueArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$CommentPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.CommentFindUniqueOrThrowArgs<ExtArgs>
+            args: Prisma.CommentFindUniqueOrThrowArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$CommentPayload>
           }
           findFirst: {
-            args: Prisma.CommentFindFirstArgs<ExtArgs>
+            args: Prisma.CommentFindFirstArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$CommentPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.CommentFindFirstOrThrowArgs<ExtArgs>
+            args: Prisma.CommentFindFirstOrThrowArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$CommentPayload>
           }
           findMany: {
-            args: Prisma.CommentFindManyArgs<ExtArgs>
+            args: Prisma.CommentFindManyArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$CommentPayload>[]
           }
           create: {
-            args: Prisma.CommentCreateArgs<ExtArgs>
+            args: Prisma.CommentCreateArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$CommentPayload>
           }
           createMany: {
-            args: Prisma.CommentCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.CommentCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CommentPayload>[]
+            args: Prisma.CommentCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
           }
           delete: {
-            args: Prisma.CommentDeleteArgs<ExtArgs>
+            args: Prisma.CommentDeleteArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$CommentPayload>
           }
           update: {
-            args: Prisma.CommentUpdateArgs<ExtArgs>
+            args: Prisma.CommentUpdateArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$CommentPayload>
           }
           deleteMany: {
-            args: Prisma.CommentDeleteManyArgs<ExtArgs>
-            result: BatchPayload
+            args: Prisma.CommentDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
           }
           updateMany: {
-            args: Prisma.CommentUpdateManyArgs<ExtArgs>
-            result: BatchPayload
+            args: Prisma.CommentUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
           }
           upsert: {
-            args: Prisma.CommentUpsertArgs<ExtArgs>
+            args: Prisma.CommentUpsertArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$CommentPayload>
           }
           aggregate: {
-            args: Prisma.CommentAggregateArgs<ExtArgs>
+            args: Prisma.CommentAggregateArgs<ExtArgs>,
             result: $Utils.Optional<AggregateComment>
           }
           groupBy: {
-            args: Prisma.CommentGroupByArgs<ExtArgs>
+            args: Prisma.CommentGroupByArgs<ExtArgs>,
             result: $Utils.Optional<CommentGroupByOutputType>[]
           }
           count: {
-            args: Prisma.CommentCountArgs<ExtArgs>
+            args: Prisma.CommentCountArgs<ExtArgs>,
             result: $Utils.Optional<CommentCountAggregateOutputType> | number
           }
         }
@@ -840,67 +826,63 @@ export namespace Prisma {
         fields: Prisma.MangaCollectionFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.MangaCollectionFindUniqueArgs<ExtArgs>
+            args: Prisma.MangaCollectionFindUniqueArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$MangaCollectionPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.MangaCollectionFindUniqueOrThrowArgs<ExtArgs>
+            args: Prisma.MangaCollectionFindUniqueOrThrowArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$MangaCollectionPayload>
           }
           findFirst: {
-            args: Prisma.MangaCollectionFindFirstArgs<ExtArgs>
+            args: Prisma.MangaCollectionFindFirstArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$MangaCollectionPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.MangaCollectionFindFirstOrThrowArgs<ExtArgs>
+            args: Prisma.MangaCollectionFindFirstOrThrowArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$MangaCollectionPayload>
           }
           findMany: {
-            args: Prisma.MangaCollectionFindManyArgs<ExtArgs>
+            args: Prisma.MangaCollectionFindManyArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$MangaCollectionPayload>[]
           }
           create: {
-            args: Prisma.MangaCollectionCreateArgs<ExtArgs>
+            args: Prisma.MangaCollectionCreateArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$MangaCollectionPayload>
           }
           createMany: {
-            args: Prisma.MangaCollectionCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.MangaCollectionCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MangaCollectionPayload>[]
+            args: Prisma.MangaCollectionCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
           }
           delete: {
-            args: Prisma.MangaCollectionDeleteArgs<ExtArgs>
+            args: Prisma.MangaCollectionDeleteArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$MangaCollectionPayload>
           }
           update: {
-            args: Prisma.MangaCollectionUpdateArgs<ExtArgs>
+            args: Prisma.MangaCollectionUpdateArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$MangaCollectionPayload>
           }
           deleteMany: {
-            args: Prisma.MangaCollectionDeleteManyArgs<ExtArgs>
-            result: BatchPayload
+            args: Prisma.MangaCollectionDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
           }
           updateMany: {
-            args: Prisma.MangaCollectionUpdateManyArgs<ExtArgs>
-            result: BatchPayload
+            args: Prisma.MangaCollectionUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
           }
           upsert: {
-            args: Prisma.MangaCollectionUpsertArgs<ExtArgs>
+            args: Prisma.MangaCollectionUpsertArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$MangaCollectionPayload>
           }
           aggregate: {
-            args: Prisma.MangaCollectionAggregateArgs<ExtArgs>
+            args: Prisma.MangaCollectionAggregateArgs<ExtArgs>,
             result: $Utils.Optional<AggregateMangaCollection>
           }
           groupBy: {
-            args: Prisma.MangaCollectionGroupByArgs<ExtArgs>
+            args: Prisma.MangaCollectionGroupByArgs<ExtArgs>,
             result: $Utils.Optional<MangaCollectionGroupByOutputType>[]
           }
           count: {
-            args: Prisma.MangaCollectionCountArgs<ExtArgs>
+            args: Prisma.MangaCollectionCountArgs<ExtArgs>,
             result: $Utils.Optional<MangaCollectionCountAggregateOutputType> | number
           }
         }
@@ -910,67 +892,63 @@ export namespace Prisma {
         fields: Prisma.MangaCommentFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.MangaCommentFindUniqueArgs<ExtArgs>
+            args: Prisma.MangaCommentFindUniqueArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$MangaCommentPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.MangaCommentFindUniqueOrThrowArgs<ExtArgs>
+            args: Prisma.MangaCommentFindUniqueOrThrowArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$MangaCommentPayload>
           }
           findFirst: {
-            args: Prisma.MangaCommentFindFirstArgs<ExtArgs>
+            args: Prisma.MangaCommentFindFirstArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$MangaCommentPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.MangaCommentFindFirstOrThrowArgs<ExtArgs>
+            args: Prisma.MangaCommentFindFirstOrThrowArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$MangaCommentPayload>
           }
           findMany: {
-            args: Prisma.MangaCommentFindManyArgs<ExtArgs>
+            args: Prisma.MangaCommentFindManyArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$MangaCommentPayload>[]
           }
           create: {
-            args: Prisma.MangaCommentCreateArgs<ExtArgs>
+            args: Prisma.MangaCommentCreateArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$MangaCommentPayload>
           }
           createMany: {
-            args: Prisma.MangaCommentCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.MangaCommentCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MangaCommentPayload>[]
+            args: Prisma.MangaCommentCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
           }
           delete: {
-            args: Prisma.MangaCommentDeleteArgs<ExtArgs>
+            args: Prisma.MangaCommentDeleteArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$MangaCommentPayload>
           }
           update: {
-            args: Prisma.MangaCommentUpdateArgs<ExtArgs>
+            args: Prisma.MangaCommentUpdateArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$MangaCommentPayload>
           }
           deleteMany: {
-            args: Prisma.MangaCommentDeleteManyArgs<ExtArgs>
-            result: BatchPayload
+            args: Prisma.MangaCommentDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
           }
           updateMany: {
-            args: Prisma.MangaCommentUpdateManyArgs<ExtArgs>
-            result: BatchPayload
+            args: Prisma.MangaCommentUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
           }
           upsert: {
-            args: Prisma.MangaCommentUpsertArgs<ExtArgs>
+            args: Prisma.MangaCommentUpsertArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$MangaCommentPayload>
           }
           aggregate: {
-            args: Prisma.MangaCommentAggregateArgs<ExtArgs>
+            args: Prisma.MangaCommentAggregateArgs<ExtArgs>,
             result: $Utils.Optional<AggregateMangaComment>
           }
           groupBy: {
-            args: Prisma.MangaCommentGroupByArgs<ExtArgs>
+            args: Prisma.MangaCommentGroupByArgs<ExtArgs>,
             result: $Utils.Optional<MangaCommentGroupByOutputType>[]
           }
           count: {
-            args: Prisma.MangaCommentCountArgs<ExtArgs>
+            args: Prisma.MangaCommentCountArgs<ExtArgs>,
             result: $Utils.Optional<MangaCommentCountAggregateOutputType> | number
           }
         }
@@ -999,7 +977,7 @@ export namespace Prisma {
       }
     }
   }
-  export const defineExtension: $Extensions.ExtendsHook<"define", Prisma.TypeMapCb, $Extensions.DefaultArgs>
+  export const defineExtension: $Extensions.ExtendsHook<'define', Prisma.TypeMapCb, $Extensions.DefaultArgs>
   export type DefaultPrismaClient = PrismaClient
   export type ErrorFormat = 'pretty' | 'colorless' | 'minimal'
   export interface PrismaClientOptions {
@@ -1032,18 +1010,7 @@ export namespace Prisma {
      * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
      */
     log?: (LogLevel | LogDefinition)[]
-    /**
-     * The default values for transactionOptions
-     * maxWait ?= 2000
-     * timeout ?= 5000
-     */
-    transactionOptions?: {
-      maxWait?: number
-      timeout?: number
-      isolationLevel?: Prisma.TransactionIsolationLevel
-    }
   }
-
 
   /* Types for Logging */
   export type LogLevel = 'info' | 'query' | 'warn' | 'error'
@@ -1081,7 +1048,6 @@ export namespace Prisma {
     | 'findFirstOrThrow'
     | 'create'
     | 'createMany'
-    | 'createManyAndReturn'
     | 'update'
     | 'updateMany'
     | 'upsert'
@@ -1336,14 +1302,6 @@ export namespace Prisma {
     user_email?: boolean
   }, ExtArgs["result"]["collection"]>
 
-  export type CollectionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    anime_mal_id?: boolean
-    anime_image_url?: boolean
-    anime_title?: boolean
-    user_email?: boolean
-  }, ExtArgs["result"]["collection"]>
-
   export type CollectionSelectScalar = {
     id?: boolean
     anime_mal_id?: boolean
@@ -1366,6 +1324,7 @@ export namespace Prisma {
     composites: {}
   }
 
+
   type CollectionGetPayload<S extends boolean | null | undefined | CollectionDefaultArgs> = $Result.GetResult<Prisma.$CollectionPayload, S>
 
   type CollectionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
@@ -1385,12 +1344,14 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     */
-    findUnique<T extends CollectionFindUniqueArgs>(args: SelectSubset<T, CollectionFindUniqueArgs<ExtArgs>>): Prisma__CollectionClient<$Result.GetResult<Prisma.$CollectionPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+    **/
+    findUnique<T extends CollectionFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, CollectionFindUniqueArgs<ExtArgs>>
+    ): Prisma__CollectionClient<$Result.GetResult<Prisma.$CollectionPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
-     * Find one Collection that matches the filter or throw an error with `error.code='P2025'` 
-     * if no matches were found.
+     * Find one Collection that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
      * @param {CollectionFindUniqueOrThrowArgs} args - Arguments to find a Collection
      * @example
      * // Get one Collection
@@ -1399,8 +1360,10 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     */
-    findUniqueOrThrow<T extends CollectionFindUniqueOrThrowArgs>(args: SelectSubset<T, CollectionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CollectionClient<$Result.GetResult<Prisma.$CollectionPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+    **/
+    findUniqueOrThrow<T extends CollectionFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, CollectionFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__CollectionClient<$Result.GetResult<Prisma.$CollectionPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
     /**
      * Find the first Collection that matches the filter.
@@ -1414,8 +1377,10 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     */
-    findFirst<T extends CollectionFindFirstArgs>(args?: SelectSubset<T, CollectionFindFirstArgs<ExtArgs>>): Prisma__CollectionClient<$Result.GetResult<Prisma.$CollectionPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+    **/
+    findFirst<T extends CollectionFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, CollectionFindFirstArgs<ExtArgs>>
+    ): Prisma__CollectionClient<$Result.GetResult<Prisma.$CollectionPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
     /**
      * Find the first Collection that matches the filter or
@@ -1430,14 +1395,16 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     */
-    findFirstOrThrow<T extends CollectionFindFirstOrThrowArgs>(args?: SelectSubset<T, CollectionFindFirstOrThrowArgs<ExtArgs>>): Prisma__CollectionClient<$Result.GetResult<Prisma.$CollectionPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+    **/
+    findFirstOrThrow<T extends CollectionFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, CollectionFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__CollectionClient<$Result.GetResult<Prisma.$CollectionPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
     /**
      * Find zero or more Collections that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CollectionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {CollectionFindManyArgs=} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all Collections
      * const collections = await prisma.collection.findMany()
@@ -1448,8 +1415,10 @@ export namespace Prisma {
      * // Only select the `id`
      * const collectionWithIdOnly = await prisma.collection.findMany({ select: { id: true } })
      * 
-     */
-    findMany<T extends CollectionFindManyArgs>(args?: SelectSubset<T, CollectionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CollectionPayload<ExtArgs>, T, "findMany">>
+    **/
+    findMany<T extends CollectionFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, CollectionFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CollectionPayload<ExtArgs>, T, 'findMany'>>
 
     /**
      * Create a Collection.
@@ -1462,46 +1431,26 @@ export namespace Prisma {
      *   }
      * })
      * 
-     */
-    create<T extends CollectionCreateArgs>(args: SelectSubset<T, CollectionCreateArgs<ExtArgs>>): Prisma__CollectionClient<$Result.GetResult<Prisma.$CollectionPayload<ExtArgs>, T, "create">, never, ExtArgs>
+    **/
+    create<T extends CollectionCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, CollectionCreateArgs<ExtArgs>>
+    ): Prisma__CollectionClient<$Result.GetResult<Prisma.$CollectionPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
     /**
      * Create many Collections.
-     * @param {CollectionCreateManyArgs} args - Arguments to create many Collections.
-     * @example
-     * // Create many Collections
-     * const collection = await prisma.collection.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
+     *     @param {CollectionCreateManyArgs} args - Arguments to create many Collections.
+     *     @example
+     *     // Create many Collections
+     *     const collection = await prisma.collection.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
      *     
-     */
-    createMany<T extends CollectionCreateManyArgs>(args?: SelectSubset<T, CollectionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Collections and returns the data saved in the database.
-     * @param {CollectionCreateManyAndReturnArgs} args - Arguments to create many Collections.
-     * @example
-     * // Create many Collections
-     * const collection = await prisma.collection.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Collections and only return the `id`
-     * const collectionWithIdOnly = await prisma.collection.createManyAndReturn({ 
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends CollectionCreateManyAndReturnArgs>(args?: SelectSubset<T, CollectionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CollectionPayload<ExtArgs>, T, "createManyAndReturn">>
+    **/
+    createMany<T extends CollectionCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, CollectionCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Delete a Collection.
@@ -1514,8 +1463,10 @@ export namespace Prisma {
      *   }
      * })
      * 
-     */
-    delete<T extends CollectionDeleteArgs>(args: SelectSubset<T, CollectionDeleteArgs<ExtArgs>>): Prisma__CollectionClient<$Result.GetResult<Prisma.$CollectionPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+    **/
+    delete<T extends CollectionDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, CollectionDeleteArgs<ExtArgs>>
+    ): Prisma__CollectionClient<$Result.GetResult<Prisma.$CollectionPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
     /**
      * Update one Collection.
@@ -1531,8 +1482,10 @@ export namespace Prisma {
      *   }
      * })
      * 
-     */
-    update<T extends CollectionUpdateArgs>(args: SelectSubset<T, CollectionUpdateArgs<ExtArgs>>): Prisma__CollectionClient<$Result.GetResult<Prisma.$CollectionPayload<ExtArgs>, T, "update">, never, ExtArgs>
+    **/
+    update<T extends CollectionUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, CollectionUpdateArgs<ExtArgs>>
+    ): Prisma__CollectionClient<$Result.GetResult<Prisma.$CollectionPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
     /**
      * Delete zero or more Collections.
@@ -1545,8 +1498,10 @@ export namespace Prisma {
      *   }
      * })
      * 
-     */
-    deleteMany<T extends CollectionDeleteManyArgs>(args?: SelectSubset<T, CollectionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    **/
+    deleteMany<T extends CollectionDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, CollectionDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Update zero or more Collections.
@@ -1564,8 +1519,10 @@ export namespace Prisma {
      *   }
      * })
      * 
-     */
-    updateMany<T extends CollectionUpdateManyArgs>(args: SelectSubset<T, CollectionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    **/
+    updateMany<T extends CollectionUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, CollectionUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Create or update one Collection.
@@ -1583,9 +1540,10 @@ export namespace Prisma {
      *     // ... the filter for the Collection we want to update
      *   }
      * })
-     */
-    upsert<T extends CollectionUpsertArgs>(args: SelectSubset<T, CollectionUpsertArgs<ExtArgs>>): Prisma__CollectionClient<$Result.GetResult<Prisma.$CollectionPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
-
+    **/
+    upsert<T extends CollectionUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, CollectionUpsertArgs<ExtArgs>>
+    ): Prisma__CollectionClient<$Result.GetResult<Prisma.$CollectionPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
     /**
      * Count the number of Collections.
@@ -1725,29 +1683,30 @@ export namespace Prisma {
    * https://github.com/prisma/prisma-client-js/issues/707
    */
   export interface Prisma__CollectionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of which ever callback is executed.
      */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
     /**
      * Attaches a callback for only the rejection of the Promise.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of the callback.
      */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
     /**
      * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
      * resolved value cannot be modified from the callback.
      * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
      * @returns A Promise for the completion of the callback.
      */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
   }
-
 
 
 
@@ -1764,6 +1723,7 @@ export namespace Prisma {
     
 
   // Custom InputTypes
+
   /**
    * Collection findUnique
    */
@@ -1778,6 +1738,7 @@ export namespace Prisma {
     where: CollectionWhereUniqueInput
   }
 
+
   /**
    * Collection findUniqueOrThrow
    */
@@ -1791,6 +1752,7 @@ export namespace Prisma {
      */
     where: CollectionWhereUniqueInput
   }
+
 
   /**
    * Collection findFirst
@@ -1836,6 +1798,7 @@ export namespace Prisma {
     distinct?: CollectionScalarFieldEnum | CollectionScalarFieldEnum[]
   }
 
+
   /**
    * Collection findFirstOrThrow
    */
@@ -1880,6 +1843,7 @@ export namespace Prisma {
     distinct?: CollectionScalarFieldEnum | CollectionScalarFieldEnum[]
   }
 
+
   /**
    * Collection findMany
    */
@@ -1919,6 +1883,7 @@ export namespace Prisma {
     distinct?: CollectionScalarFieldEnum | CollectionScalarFieldEnum[]
   }
 
+
   /**
    * Collection create
    */
@@ -1933,6 +1898,7 @@ export namespace Prisma {
     data: XOR<CollectionCreateInput, CollectionUncheckedCreateInput>
   }
 
+
   /**
    * Collection createMany
    */
@@ -1944,20 +1910,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  /**
-   * Collection createManyAndReturn
-   */
-  export type CollectionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Collection
-     */
-    select?: CollectionSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * The data used to create many Collections.
-     */
-    data: CollectionCreateManyInput | CollectionCreateManyInput[]
-    skipDuplicates?: boolean
-  }
 
   /**
    * Collection update
@@ -1977,6 +1929,7 @@ export namespace Prisma {
     where: CollectionWhereUniqueInput
   }
 
+
   /**
    * Collection updateMany
    */
@@ -1990,6 +1943,7 @@ export namespace Prisma {
      */
     where?: CollectionWhereInput
   }
+
 
   /**
    * Collection upsert
@@ -2013,6 +1967,7 @@ export namespace Prisma {
     update: XOR<CollectionUpdateInput, CollectionUncheckedUpdateInput>
   }
 
+
   /**
    * Collection delete
    */
@@ -2027,6 +1982,7 @@ export namespace Prisma {
     where: CollectionWhereUniqueInput
   }
 
+
   /**
    * Collection deleteMany
    */
@@ -2037,6 +1993,7 @@ export namespace Prisma {
     where?: CollectionWhereInput
   }
 
+
   /**
    * Collection without action
    */
@@ -2046,6 +2003,7 @@ export namespace Prisma {
      */
     select?: CollectionSelect<ExtArgs> | null
   }
+
 
 
   /**
@@ -2284,18 +2242,6 @@ export namespace Prisma {
     createdAt?: boolean
   }, ExtArgs["result"]["comment"]>
 
-  export type CommentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    anime_mal_id?: boolean
-    anime_title?: boolean
-    user_email?: boolean
-    username?: boolean
-    user_image?: boolean
-    comment?: boolean
-    rating?: boolean
-    createdAt?: boolean
-  }, ExtArgs["result"]["comment"]>
-
   export type CommentSelectScalar = {
     id?: boolean
     anime_mal_id?: boolean
@@ -2326,6 +2272,7 @@ export namespace Prisma {
     composites: {}
   }
 
+
   type CommentGetPayload<S extends boolean | null | undefined | CommentDefaultArgs> = $Result.GetResult<Prisma.$CommentPayload, S>
 
   type CommentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
@@ -2345,12 +2292,14 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     */
-    findUnique<T extends CommentFindUniqueArgs>(args: SelectSubset<T, CommentFindUniqueArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+    **/
+    findUnique<T extends CommentFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, CommentFindUniqueArgs<ExtArgs>>
+    ): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
-     * Find one Comment that matches the filter or throw an error with `error.code='P2025'` 
-     * if no matches were found.
+     * Find one Comment that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
      * @param {CommentFindUniqueOrThrowArgs} args - Arguments to find a Comment
      * @example
      * // Get one Comment
@@ -2359,8 +2308,10 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     */
-    findUniqueOrThrow<T extends CommentFindUniqueOrThrowArgs>(args: SelectSubset<T, CommentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+    **/
+    findUniqueOrThrow<T extends CommentFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, CommentFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
     /**
      * Find the first Comment that matches the filter.
@@ -2374,8 +2325,10 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     */
-    findFirst<T extends CommentFindFirstArgs>(args?: SelectSubset<T, CommentFindFirstArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+    **/
+    findFirst<T extends CommentFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, CommentFindFirstArgs<ExtArgs>>
+    ): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
     /**
      * Find the first Comment that matches the filter or
@@ -2390,14 +2343,16 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     */
-    findFirstOrThrow<T extends CommentFindFirstOrThrowArgs>(args?: SelectSubset<T, CommentFindFirstOrThrowArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+    **/
+    findFirstOrThrow<T extends CommentFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, CommentFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
     /**
      * Find zero or more Comments that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CommentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {CommentFindManyArgs=} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all Comments
      * const comments = await prisma.comment.findMany()
@@ -2408,8 +2363,10 @@ export namespace Prisma {
      * // Only select the `id`
      * const commentWithIdOnly = await prisma.comment.findMany({ select: { id: true } })
      * 
-     */
-    findMany<T extends CommentFindManyArgs>(args?: SelectSubset<T, CommentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany">>
+    **/
+    findMany<T extends CommentFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, CommentFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, 'findMany'>>
 
     /**
      * Create a Comment.
@@ -2422,46 +2379,26 @@ export namespace Prisma {
      *   }
      * })
      * 
-     */
-    create<T extends CommentCreateArgs>(args: SelectSubset<T, CommentCreateArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "create">, never, ExtArgs>
+    **/
+    create<T extends CommentCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, CommentCreateArgs<ExtArgs>>
+    ): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
     /**
      * Create many Comments.
-     * @param {CommentCreateManyArgs} args - Arguments to create many Comments.
-     * @example
-     * // Create many Comments
-     * const comment = await prisma.comment.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
+     *     @param {CommentCreateManyArgs} args - Arguments to create many Comments.
+     *     @example
+     *     // Create many Comments
+     *     const comment = await prisma.comment.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
      *     
-     */
-    createMany<T extends CommentCreateManyArgs>(args?: SelectSubset<T, CommentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Comments and returns the data saved in the database.
-     * @param {CommentCreateManyAndReturnArgs} args - Arguments to create many Comments.
-     * @example
-     * // Create many Comments
-     * const comment = await prisma.comment.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Comments and only return the `id`
-     * const commentWithIdOnly = await prisma.comment.createManyAndReturn({ 
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends CommentCreateManyAndReturnArgs>(args?: SelectSubset<T, CommentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "createManyAndReturn">>
+    **/
+    createMany<T extends CommentCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, CommentCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Delete a Comment.
@@ -2474,8 +2411,10 @@ export namespace Prisma {
      *   }
      * })
      * 
-     */
-    delete<T extends CommentDeleteArgs>(args: SelectSubset<T, CommentDeleteArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+    **/
+    delete<T extends CommentDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, CommentDeleteArgs<ExtArgs>>
+    ): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
     /**
      * Update one Comment.
@@ -2491,8 +2430,10 @@ export namespace Prisma {
      *   }
      * })
      * 
-     */
-    update<T extends CommentUpdateArgs>(args: SelectSubset<T, CommentUpdateArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "update">, never, ExtArgs>
+    **/
+    update<T extends CommentUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, CommentUpdateArgs<ExtArgs>>
+    ): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
     /**
      * Delete zero or more Comments.
@@ -2505,8 +2446,10 @@ export namespace Prisma {
      *   }
      * })
      * 
-     */
-    deleteMany<T extends CommentDeleteManyArgs>(args?: SelectSubset<T, CommentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    **/
+    deleteMany<T extends CommentDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, CommentDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Update zero or more Comments.
@@ -2524,8 +2467,10 @@ export namespace Prisma {
      *   }
      * })
      * 
-     */
-    updateMany<T extends CommentUpdateManyArgs>(args: SelectSubset<T, CommentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    **/
+    updateMany<T extends CommentUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, CommentUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Create or update one Comment.
@@ -2543,9 +2488,10 @@ export namespace Prisma {
      *     // ... the filter for the Comment we want to update
      *   }
      * })
-     */
-    upsert<T extends CommentUpsertArgs>(args: SelectSubset<T, CommentUpsertArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
-
+    **/
+    upsert<T extends CommentUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, CommentUpsertArgs<ExtArgs>>
+    ): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
     /**
      * Count the number of Comments.
@@ -2685,29 +2631,30 @@ export namespace Prisma {
    * https://github.com/prisma/prisma-client-js/issues/707
    */
   export interface Prisma__CommentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of which ever callback is executed.
      */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
     /**
      * Attaches a callback for only the rejection of the Promise.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of the callback.
      */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
     /**
      * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
      * resolved value cannot be modified from the callback.
      * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
      * @returns A Promise for the completion of the callback.
      */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
   }
-
 
 
 
@@ -2728,6 +2675,7 @@ export namespace Prisma {
     
 
   // Custom InputTypes
+
   /**
    * Comment findUnique
    */
@@ -2742,6 +2690,7 @@ export namespace Prisma {
     where: CommentWhereUniqueInput
   }
 
+
   /**
    * Comment findUniqueOrThrow
    */
@@ -2755,6 +2704,7 @@ export namespace Prisma {
      */
     where: CommentWhereUniqueInput
   }
+
 
   /**
    * Comment findFirst
@@ -2800,6 +2750,7 @@ export namespace Prisma {
     distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
   }
 
+
   /**
    * Comment findFirstOrThrow
    */
@@ -2844,6 +2795,7 @@ export namespace Prisma {
     distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
   }
 
+
   /**
    * Comment findMany
    */
@@ -2883,6 +2835,7 @@ export namespace Prisma {
     distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
   }
 
+
   /**
    * Comment create
    */
@@ -2897,6 +2850,7 @@ export namespace Prisma {
     data: XOR<CommentCreateInput, CommentUncheckedCreateInput>
   }
 
+
   /**
    * Comment createMany
    */
@@ -2908,20 +2862,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  /**
-   * Comment createManyAndReturn
-   */
-  export type CommentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Comment
-     */
-    select?: CommentSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * The data used to create many Comments.
-     */
-    data: CommentCreateManyInput | CommentCreateManyInput[]
-    skipDuplicates?: boolean
-  }
 
   /**
    * Comment update
@@ -2941,6 +2881,7 @@ export namespace Prisma {
     where: CommentWhereUniqueInput
   }
 
+
   /**
    * Comment updateMany
    */
@@ -2954,6 +2895,7 @@ export namespace Prisma {
      */
     where?: CommentWhereInput
   }
+
 
   /**
    * Comment upsert
@@ -2977,6 +2919,7 @@ export namespace Prisma {
     update: XOR<CommentUpdateInput, CommentUncheckedUpdateInput>
   }
 
+
   /**
    * Comment delete
    */
@@ -2991,6 +2934,7 @@ export namespace Prisma {
     where: CommentWhereUniqueInput
   }
 
+
   /**
    * Comment deleteMany
    */
@@ -3001,6 +2945,7 @@ export namespace Prisma {
     where?: CommentWhereInput
   }
 
+
   /**
    * Comment without action
    */
@@ -3010,6 +2955,7 @@ export namespace Prisma {
      */
     select?: CommentSelect<ExtArgs> | null
   }
+
 
 
   /**
@@ -3212,14 +3158,6 @@ export namespace Prisma {
     user_email?: boolean
   }, ExtArgs["result"]["mangaCollection"]>
 
-  export type MangaCollectionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    mal_id?: boolean
-    image_url?: boolean
-    title?: boolean
-    user_email?: boolean
-  }, ExtArgs["result"]["mangaCollection"]>
-
   export type MangaCollectionSelectScalar = {
     id?: boolean
     mal_id?: boolean
@@ -3242,6 +3180,7 @@ export namespace Prisma {
     composites: {}
   }
 
+
   type MangaCollectionGetPayload<S extends boolean | null | undefined | MangaCollectionDefaultArgs> = $Result.GetResult<Prisma.$MangaCollectionPayload, S>
 
   type MangaCollectionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
@@ -3261,12 +3200,14 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     */
-    findUnique<T extends MangaCollectionFindUniqueArgs>(args: SelectSubset<T, MangaCollectionFindUniqueArgs<ExtArgs>>): Prisma__MangaCollectionClient<$Result.GetResult<Prisma.$MangaCollectionPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+    **/
+    findUnique<T extends MangaCollectionFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, MangaCollectionFindUniqueArgs<ExtArgs>>
+    ): Prisma__MangaCollectionClient<$Result.GetResult<Prisma.$MangaCollectionPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
-     * Find one MangaCollection that matches the filter or throw an error with `error.code='P2025'` 
-     * if no matches were found.
+     * Find one MangaCollection that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
      * @param {MangaCollectionFindUniqueOrThrowArgs} args - Arguments to find a MangaCollection
      * @example
      * // Get one MangaCollection
@@ -3275,8 +3216,10 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     */
-    findUniqueOrThrow<T extends MangaCollectionFindUniqueOrThrowArgs>(args: SelectSubset<T, MangaCollectionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MangaCollectionClient<$Result.GetResult<Prisma.$MangaCollectionPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+    **/
+    findUniqueOrThrow<T extends MangaCollectionFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, MangaCollectionFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__MangaCollectionClient<$Result.GetResult<Prisma.$MangaCollectionPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
     /**
      * Find the first MangaCollection that matches the filter.
@@ -3290,8 +3233,10 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     */
-    findFirst<T extends MangaCollectionFindFirstArgs>(args?: SelectSubset<T, MangaCollectionFindFirstArgs<ExtArgs>>): Prisma__MangaCollectionClient<$Result.GetResult<Prisma.$MangaCollectionPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+    **/
+    findFirst<T extends MangaCollectionFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, MangaCollectionFindFirstArgs<ExtArgs>>
+    ): Prisma__MangaCollectionClient<$Result.GetResult<Prisma.$MangaCollectionPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
     /**
      * Find the first MangaCollection that matches the filter or
@@ -3306,14 +3251,16 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     */
-    findFirstOrThrow<T extends MangaCollectionFindFirstOrThrowArgs>(args?: SelectSubset<T, MangaCollectionFindFirstOrThrowArgs<ExtArgs>>): Prisma__MangaCollectionClient<$Result.GetResult<Prisma.$MangaCollectionPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+    **/
+    findFirstOrThrow<T extends MangaCollectionFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, MangaCollectionFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__MangaCollectionClient<$Result.GetResult<Prisma.$MangaCollectionPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
     /**
      * Find zero or more MangaCollections that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MangaCollectionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {MangaCollectionFindManyArgs=} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all MangaCollections
      * const mangaCollections = await prisma.mangaCollection.findMany()
@@ -3324,8 +3271,10 @@ export namespace Prisma {
      * // Only select the `id`
      * const mangaCollectionWithIdOnly = await prisma.mangaCollection.findMany({ select: { id: true } })
      * 
-     */
-    findMany<T extends MangaCollectionFindManyArgs>(args?: SelectSubset<T, MangaCollectionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MangaCollectionPayload<ExtArgs>, T, "findMany">>
+    **/
+    findMany<T extends MangaCollectionFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MangaCollectionFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MangaCollectionPayload<ExtArgs>, T, 'findMany'>>
 
     /**
      * Create a MangaCollection.
@@ -3338,46 +3287,26 @@ export namespace Prisma {
      *   }
      * })
      * 
-     */
-    create<T extends MangaCollectionCreateArgs>(args: SelectSubset<T, MangaCollectionCreateArgs<ExtArgs>>): Prisma__MangaCollectionClient<$Result.GetResult<Prisma.$MangaCollectionPayload<ExtArgs>, T, "create">, never, ExtArgs>
+    **/
+    create<T extends MangaCollectionCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, MangaCollectionCreateArgs<ExtArgs>>
+    ): Prisma__MangaCollectionClient<$Result.GetResult<Prisma.$MangaCollectionPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
     /**
      * Create many MangaCollections.
-     * @param {MangaCollectionCreateManyArgs} args - Arguments to create many MangaCollections.
-     * @example
-     * // Create many MangaCollections
-     * const mangaCollection = await prisma.mangaCollection.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
+     *     @param {MangaCollectionCreateManyArgs} args - Arguments to create many MangaCollections.
+     *     @example
+     *     // Create many MangaCollections
+     *     const mangaCollection = await prisma.mangaCollection.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
      *     
-     */
-    createMany<T extends MangaCollectionCreateManyArgs>(args?: SelectSubset<T, MangaCollectionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many MangaCollections and returns the data saved in the database.
-     * @param {MangaCollectionCreateManyAndReturnArgs} args - Arguments to create many MangaCollections.
-     * @example
-     * // Create many MangaCollections
-     * const mangaCollection = await prisma.mangaCollection.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many MangaCollections and only return the `id`
-     * const mangaCollectionWithIdOnly = await prisma.mangaCollection.createManyAndReturn({ 
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends MangaCollectionCreateManyAndReturnArgs>(args?: SelectSubset<T, MangaCollectionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MangaCollectionPayload<ExtArgs>, T, "createManyAndReturn">>
+    **/
+    createMany<T extends MangaCollectionCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MangaCollectionCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Delete a MangaCollection.
@@ -3390,8 +3319,10 @@ export namespace Prisma {
      *   }
      * })
      * 
-     */
-    delete<T extends MangaCollectionDeleteArgs>(args: SelectSubset<T, MangaCollectionDeleteArgs<ExtArgs>>): Prisma__MangaCollectionClient<$Result.GetResult<Prisma.$MangaCollectionPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+    **/
+    delete<T extends MangaCollectionDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, MangaCollectionDeleteArgs<ExtArgs>>
+    ): Prisma__MangaCollectionClient<$Result.GetResult<Prisma.$MangaCollectionPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
     /**
      * Update one MangaCollection.
@@ -3407,8 +3338,10 @@ export namespace Prisma {
      *   }
      * })
      * 
-     */
-    update<T extends MangaCollectionUpdateArgs>(args: SelectSubset<T, MangaCollectionUpdateArgs<ExtArgs>>): Prisma__MangaCollectionClient<$Result.GetResult<Prisma.$MangaCollectionPayload<ExtArgs>, T, "update">, never, ExtArgs>
+    **/
+    update<T extends MangaCollectionUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, MangaCollectionUpdateArgs<ExtArgs>>
+    ): Prisma__MangaCollectionClient<$Result.GetResult<Prisma.$MangaCollectionPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
     /**
      * Delete zero or more MangaCollections.
@@ -3421,8 +3354,10 @@ export namespace Prisma {
      *   }
      * })
      * 
-     */
-    deleteMany<T extends MangaCollectionDeleteManyArgs>(args?: SelectSubset<T, MangaCollectionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    **/
+    deleteMany<T extends MangaCollectionDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MangaCollectionDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Update zero or more MangaCollections.
@@ -3440,8 +3375,10 @@ export namespace Prisma {
      *   }
      * })
      * 
-     */
-    updateMany<T extends MangaCollectionUpdateManyArgs>(args: SelectSubset<T, MangaCollectionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    **/
+    updateMany<T extends MangaCollectionUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, MangaCollectionUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Create or update one MangaCollection.
@@ -3459,9 +3396,10 @@ export namespace Prisma {
      *     // ... the filter for the MangaCollection we want to update
      *   }
      * })
-     */
-    upsert<T extends MangaCollectionUpsertArgs>(args: SelectSubset<T, MangaCollectionUpsertArgs<ExtArgs>>): Prisma__MangaCollectionClient<$Result.GetResult<Prisma.$MangaCollectionPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
-
+    **/
+    upsert<T extends MangaCollectionUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, MangaCollectionUpsertArgs<ExtArgs>>
+    ): Prisma__MangaCollectionClient<$Result.GetResult<Prisma.$MangaCollectionPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
     /**
      * Count the number of MangaCollections.
@@ -3601,29 +3539,30 @@ export namespace Prisma {
    * https://github.com/prisma/prisma-client-js/issues/707
    */
   export interface Prisma__MangaCollectionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of which ever callback is executed.
      */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
     /**
      * Attaches a callback for only the rejection of the Promise.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of the callback.
      */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
     /**
      * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
      * resolved value cannot be modified from the callback.
      * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
      * @returns A Promise for the completion of the callback.
      */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
   }
-
 
 
 
@@ -3640,6 +3579,7 @@ export namespace Prisma {
     
 
   // Custom InputTypes
+
   /**
    * MangaCollection findUnique
    */
@@ -3654,6 +3594,7 @@ export namespace Prisma {
     where: MangaCollectionWhereUniqueInput
   }
 
+
   /**
    * MangaCollection findUniqueOrThrow
    */
@@ -3667,6 +3608,7 @@ export namespace Prisma {
      */
     where: MangaCollectionWhereUniqueInput
   }
+
 
   /**
    * MangaCollection findFirst
@@ -3712,6 +3654,7 @@ export namespace Prisma {
     distinct?: MangaCollectionScalarFieldEnum | MangaCollectionScalarFieldEnum[]
   }
 
+
   /**
    * MangaCollection findFirstOrThrow
    */
@@ -3756,6 +3699,7 @@ export namespace Prisma {
     distinct?: MangaCollectionScalarFieldEnum | MangaCollectionScalarFieldEnum[]
   }
 
+
   /**
    * MangaCollection findMany
    */
@@ -3795,6 +3739,7 @@ export namespace Prisma {
     distinct?: MangaCollectionScalarFieldEnum | MangaCollectionScalarFieldEnum[]
   }
 
+
   /**
    * MangaCollection create
    */
@@ -3809,6 +3754,7 @@ export namespace Prisma {
     data: XOR<MangaCollectionCreateInput, MangaCollectionUncheckedCreateInput>
   }
 
+
   /**
    * MangaCollection createMany
    */
@@ -3820,20 +3766,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  /**
-   * MangaCollection createManyAndReturn
-   */
-  export type MangaCollectionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MangaCollection
-     */
-    select?: MangaCollectionSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * The data used to create many MangaCollections.
-     */
-    data: MangaCollectionCreateManyInput | MangaCollectionCreateManyInput[]
-    skipDuplicates?: boolean
-  }
 
   /**
    * MangaCollection update
@@ -3853,6 +3785,7 @@ export namespace Prisma {
     where: MangaCollectionWhereUniqueInput
   }
 
+
   /**
    * MangaCollection updateMany
    */
@@ -3866,6 +3799,7 @@ export namespace Prisma {
      */
     where?: MangaCollectionWhereInput
   }
+
 
   /**
    * MangaCollection upsert
@@ -3889,6 +3823,7 @@ export namespace Prisma {
     update: XOR<MangaCollectionUpdateInput, MangaCollectionUncheckedUpdateInput>
   }
 
+
   /**
    * MangaCollection delete
    */
@@ -3903,6 +3838,7 @@ export namespace Prisma {
     where: MangaCollectionWhereUniqueInput
   }
 
+
   /**
    * MangaCollection deleteMany
    */
@@ -3913,6 +3849,7 @@ export namespace Prisma {
     where?: MangaCollectionWhereInput
   }
 
+
   /**
    * MangaCollection without action
    */
@@ -3922,6 +3859,7 @@ export namespace Prisma {
      */
     select?: MangaCollectionSelect<ExtArgs> | null
   }
+
 
 
   /**
@@ -4160,18 +4098,6 @@ export namespace Prisma {
     createdAt?: boolean
   }, ExtArgs["result"]["mangaComment"]>
 
-  export type MangaCommentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    mal_id?: boolean
-    title?: boolean
-    user_email?: boolean
-    username?: boolean
-    user_image?: boolean
-    comment?: boolean
-    rating?: boolean
-    createdAt?: boolean
-  }, ExtArgs["result"]["mangaComment"]>
-
   export type MangaCommentSelectScalar = {
     id?: boolean
     mal_id?: boolean
@@ -4202,6 +4128,7 @@ export namespace Prisma {
     composites: {}
   }
 
+
   type MangaCommentGetPayload<S extends boolean | null | undefined | MangaCommentDefaultArgs> = $Result.GetResult<Prisma.$MangaCommentPayload, S>
 
   type MangaCommentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
@@ -4221,12 +4148,14 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     */
-    findUnique<T extends MangaCommentFindUniqueArgs>(args: SelectSubset<T, MangaCommentFindUniqueArgs<ExtArgs>>): Prisma__MangaCommentClient<$Result.GetResult<Prisma.$MangaCommentPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+    **/
+    findUnique<T extends MangaCommentFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, MangaCommentFindUniqueArgs<ExtArgs>>
+    ): Prisma__MangaCommentClient<$Result.GetResult<Prisma.$MangaCommentPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
-     * Find one MangaComment that matches the filter or throw an error with `error.code='P2025'` 
-     * if no matches were found.
+     * Find one MangaComment that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
      * @param {MangaCommentFindUniqueOrThrowArgs} args - Arguments to find a MangaComment
      * @example
      * // Get one MangaComment
@@ -4235,8 +4164,10 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     */
-    findUniqueOrThrow<T extends MangaCommentFindUniqueOrThrowArgs>(args: SelectSubset<T, MangaCommentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MangaCommentClient<$Result.GetResult<Prisma.$MangaCommentPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+    **/
+    findUniqueOrThrow<T extends MangaCommentFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, MangaCommentFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__MangaCommentClient<$Result.GetResult<Prisma.$MangaCommentPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
     /**
      * Find the first MangaComment that matches the filter.
@@ -4250,8 +4181,10 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     */
-    findFirst<T extends MangaCommentFindFirstArgs>(args?: SelectSubset<T, MangaCommentFindFirstArgs<ExtArgs>>): Prisma__MangaCommentClient<$Result.GetResult<Prisma.$MangaCommentPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+    **/
+    findFirst<T extends MangaCommentFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, MangaCommentFindFirstArgs<ExtArgs>>
+    ): Prisma__MangaCommentClient<$Result.GetResult<Prisma.$MangaCommentPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
     /**
      * Find the first MangaComment that matches the filter or
@@ -4266,14 +4199,16 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     */
-    findFirstOrThrow<T extends MangaCommentFindFirstOrThrowArgs>(args?: SelectSubset<T, MangaCommentFindFirstOrThrowArgs<ExtArgs>>): Prisma__MangaCommentClient<$Result.GetResult<Prisma.$MangaCommentPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+    **/
+    findFirstOrThrow<T extends MangaCommentFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, MangaCommentFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__MangaCommentClient<$Result.GetResult<Prisma.$MangaCommentPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
     /**
      * Find zero or more MangaComments that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MangaCommentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {MangaCommentFindManyArgs=} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all MangaComments
      * const mangaComments = await prisma.mangaComment.findMany()
@@ -4284,8 +4219,10 @@ export namespace Prisma {
      * // Only select the `id`
      * const mangaCommentWithIdOnly = await prisma.mangaComment.findMany({ select: { id: true } })
      * 
-     */
-    findMany<T extends MangaCommentFindManyArgs>(args?: SelectSubset<T, MangaCommentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MangaCommentPayload<ExtArgs>, T, "findMany">>
+    **/
+    findMany<T extends MangaCommentFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MangaCommentFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MangaCommentPayload<ExtArgs>, T, 'findMany'>>
 
     /**
      * Create a MangaComment.
@@ -4298,46 +4235,26 @@ export namespace Prisma {
      *   }
      * })
      * 
-     */
-    create<T extends MangaCommentCreateArgs>(args: SelectSubset<T, MangaCommentCreateArgs<ExtArgs>>): Prisma__MangaCommentClient<$Result.GetResult<Prisma.$MangaCommentPayload<ExtArgs>, T, "create">, never, ExtArgs>
+    **/
+    create<T extends MangaCommentCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, MangaCommentCreateArgs<ExtArgs>>
+    ): Prisma__MangaCommentClient<$Result.GetResult<Prisma.$MangaCommentPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
     /**
      * Create many MangaComments.
-     * @param {MangaCommentCreateManyArgs} args - Arguments to create many MangaComments.
-     * @example
-     * // Create many MangaComments
-     * const mangaComment = await prisma.mangaComment.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
+     *     @param {MangaCommentCreateManyArgs} args - Arguments to create many MangaComments.
+     *     @example
+     *     // Create many MangaComments
+     *     const mangaComment = await prisma.mangaComment.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
      *     
-     */
-    createMany<T extends MangaCommentCreateManyArgs>(args?: SelectSubset<T, MangaCommentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many MangaComments and returns the data saved in the database.
-     * @param {MangaCommentCreateManyAndReturnArgs} args - Arguments to create many MangaComments.
-     * @example
-     * // Create many MangaComments
-     * const mangaComment = await prisma.mangaComment.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many MangaComments and only return the `id`
-     * const mangaCommentWithIdOnly = await prisma.mangaComment.createManyAndReturn({ 
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends MangaCommentCreateManyAndReturnArgs>(args?: SelectSubset<T, MangaCommentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MangaCommentPayload<ExtArgs>, T, "createManyAndReturn">>
+    **/
+    createMany<T extends MangaCommentCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MangaCommentCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Delete a MangaComment.
@@ -4350,8 +4267,10 @@ export namespace Prisma {
      *   }
      * })
      * 
-     */
-    delete<T extends MangaCommentDeleteArgs>(args: SelectSubset<T, MangaCommentDeleteArgs<ExtArgs>>): Prisma__MangaCommentClient<$Result.GetResult<Prisma.$MangaCommentPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+    **/
+    delete<T extends MangaCommentDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, MangaCommentDeleteArgs<ExtArgs>>
+    ): Prisma__MangaCommentClient<$Result.GetResult<Prisma.$MangaCommentPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
     /**
      * Update one MangaComment.
@@ -4367,8 +4286,10 @@ export namespace Prisma {
      *   }
      * })
      * 
-     */
-    update<T extends MangaCommentUpdateArgs>(args: SelectSubset<T, MangaCommentUpdateArgs<ExtArgs>>): Prisma__MangaCommentClient<$Result.GetResult<Prisma.$MangaCommentPayload<ExtArgs>, T, "update">, never, ExtArgs>
+    **/
+    update<T extends MangaCommentUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, MangaCommentUpdateArgs<ExtArgs>>
+    ): Prisma__MangaCommentClient<$Result.GetResult<Prisma.$MangaCommentPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
     /**
      * Delete zero or more MangaComments.
@@ -4381,8 +4302,10 @@ export namespace Prisma {
      *   }
      * })
      * 
-     */
-    deleteMany<T extends MangaCommentDeleteManyArgs>(args?: SelectSubset<T, MangaCommentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    **/
+    deleteMany<T extends MangaCommentDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MangaCommentDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Update zero or more MangaComments.
@@ -4400,8 +4323,10 @@ export namespace Prisma {
      *   }
      * })
      * 
-     */
-    updateMany<T extends MangaCommentUpdateManyArgs>(args: SelectSubset<T, MangaCommentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    **/
+    updateMany<T extends MangaCommentUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, MangaCommentUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Create or update one MangaComment.
@@ -4419,9 +4344,10 @@ export namespace Prisma {
      *     // ... the filter for the MangaComment we want to update
      *   }
      * })
-     */
-    upsert<T extends MangaCommentUpsertArgs>(args: SelectSubset<T, MangaCommentUpsertArgs<ExtArgs>>): Prisma__MangaCommentClient<$Result.GetResult<Prisma.$MangaCommentPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
-
+    **/
+    upsert<T extends MangaCommentUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, MangaCommentUpsertArgs<ExtArgs>>
+    ): Prisma__MangaCommentClient<$Result.GetResult<Prisma.$MangaCommentPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
     /**
      * Count the number of MangaComments.
@@ -4561,29 +4487,30 @@ export namespace Prisma {
    * https://github.com/prisma/prisma-client-js/issues/707
    */
   export interface Prisma__MangaCommentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of which ever callback is executed.
      */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
     /**
      * Attaches a callback for only the rejection of the Promise.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of the callback.
      */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
     /**
      * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
      * resolved value cannot be modified from the callback.
      * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
      * @returns A Promise for the completion of the callback.
      */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
   }
-
 
 
 
@@ -4604,6 +4531,7 @@ export namespace Prisma {
     
 
   // Custom InputTypes
+
   /**
    * MangaComment findUnique
    */
@@ -4618,6 +4546,7 @@ export namespace Prisma {
     where: MangaCommentWhereUniqueInput
   }
 
+
   /**
    * MangaComment findUniqueOrThrow
    */
@@ -4631,6 +4560,7 @@ export namespace Prisma {
      */
     where: MangaCommentWhereUniqueInput
   }
+
 
   /**
    * MangaComment findFirst
@@ -4676,6 +4606,7 @@ export namespace Prisma {
     distinct?: MangaCommentScalarFieldEnum | MangaCommentScalarFieldEnum[]
   }
 
+
   /**
    * MangaComment findFirstOrThrow
    */
@@ -4720,6 +4651,7 @@ export namespace Prisma {
     distinct?: MangaCommentScalarFieldEnum | MangaCommentScalarFieldEnum[]
   }
 
+
   /**
    * MangaComment findMany
    */
@@ -4759,6 +4691,7 @@ export namespace Prisma {
     distinct?: MangaCommentScalarFieldEnum | MangaCommentScalarFieldEnum[]
   }
 
+
   /**
    * MangaComment create
    */
@@ -4773,6 +4706,7 @@ export namespace Prisma {
     data: XOR<MangaCommentCreateInput, MangaCommentUncheckedCreateInput>
   }
 
+
   /**
    * MangaComment createMany
    */
@@ -4784,20 +4718,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  /**
-   * MangaComment createManyAndReturn
-   */
-  export type MangaCommentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MangaComment
-     */
-    select?: MangaCommentSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * The data used to create many MangaComments.
-     */
-    data: MangaCommentCreateManyInput | MangaCommentCreateManyInput[]
-    skipDuplicates?: boolean
-  }
 
   /**
    * MangaComment update
@@ -4817,6 +4737,7 @@ export namespace Prisma {
     where: MangaCommentWhereUniqueInput
   }
 
+
   /**
    * MangaComment updateMany
    */
@@ -4830,6 +4751,7 @@ export namespace Prisma {
      */
     where?: MangaCommentWhereInput
   }
+
 
   /**
    * MangaComment upsert
@@ -4853,6 +4775,7 @@ export namespace Prisma {
     update: XOR<MangaCommentUpdateInput, MangaCommentUncheckedUpdateInput>
   }
 
+
   /**
    * MangaComment delete
    */
@@ -4867,6 +4790,7 @@ export namespace Prisma {
     where: MangaCommentWhereUniqueInput
   }
 
+
   /**
    * MangaComment deleteMany
    */
@@ -4877,6 +4801,7 @@ export namespace Prisma {
     where?: MangaCommentWhereInput
   }
 
+
   /**
    * MangaComment without action
    */
@@ -4886,6 +4811,7 @@ export namespace Prisma {
      */
     select?: MangaCommentSelect<ExtArgs> | null
   }
+
 
 
   /**

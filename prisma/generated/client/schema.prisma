@@ -2,8 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider   = "prisma-client-js"
-  output     = "./generated/client"
+  provider = "prisma-client-js"
+  output   = "./generated/client"
   // Use 'library' or 'binary'
   engineType = "binary"
 }
@@ -57,6 +57,24 @@ model MangaComment {
   rating     Int
   createdAt  DateTime @default(now())
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // // This is your Prisma schema file,
 // // learn more about it in the docs: https://pris.ly/d/prisma-schema

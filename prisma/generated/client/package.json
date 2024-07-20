@@ -7,34 +7,28 @@
     "./package.json": "./package.json",
     ".": {
       "require": {
-        "node": "./index.js",
+        "types": "./default.d.ts",
+        "node": "./default.js",
         "edge-light": "./wasm.js",
         "workerd": "./wasm.js",
         "worker": "./wasm.js",
-        "browser": "./index-browser.js",
-        "default": "./index.js"
+        "browser": "./index-browser.js"
       },
       "import": {
-        "node": "./index.js",
+        "types": "./default.d.ts",
+        "node": "./default.js",
         "edge-light": "./wasm.js",
         "workerd": "./wasm.js",
         "worker": "./wasm.js",
-        "browser": "./index-browser.js",
-        "default": "./index.js"
+        "browser": "./index-browser.js"
       },
-      "default": "./index.js"
+      "default": "./default.js"
     },
     "./edge": {
       "types": "./edge.d.ts",
       "require": "./edge.js",
       "import": "./edge.js",
       "default": "./edge.js"
-    },
-    "./react-native": {
-      "types": "./react-native.d.ts",
-      "require": "./react-native.js",
-      "import": "./react-native.js",
-      "default": "./react-native.js"
     },
     "./extension": {
       "types": "./extension.d.ts",
@@ -43,16 +37,16 @@
       "default": "./extension.js"
     },
     "./index-browser": {
-      "types": "./index.d.ts",
+      "types": "./default.d.ts",
       "require": "./index-browser.js",
       "import": "./index-browser.js",
       "default": "./index-browser.js"
     },
     "./index": {
-      "types": "./index.d.ts",
-      "require": "./index.js",
-      "import": "./index.js",
-      "default": "./index.js"
+      "types": "./default.d.ts",
+      "require": "./default.js",
+      "import": "./default.js",
+      "default": "./default.js"
     },
     "./wasm": {
       "types": "./wasm.d.ts",
@@ -72,13 +66,8 @@
       "import": "./runtime/binary.js",
       "default": "./runtime/binary.js"
     },
-    "./generator-build": {
-      "require": "./generator-build/index.js",
-      "import": "./generator-build/index.js",
-      "default": "./generator-build/index.js"
-    },
     "./*": "./*"
   },
-  "version": "5.16.1",
+  "version": "5.9.1",
   "sideEffects": false
 }

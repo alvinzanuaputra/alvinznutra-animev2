@@ -161,7 +161,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "D:\\Desktop\\alvin-animelist\\prisma\\generated\\client",
+      "value": "C:\\Users\\zanua\\OneDrive\\Desktop\\animev2\\prisma\\generated\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -175,7 +175,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "D:\\Desktop\\alvin-animelist\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\zanua\\OneDrive\\Desktop\\animev2\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

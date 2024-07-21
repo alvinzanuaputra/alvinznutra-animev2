@@ -53,16 +53,20 @@ export const CustomPagination: React.FC<CustomPaginationProps> = ({
 
   const { minPageNumberLimit, maxPageNumberLimit } = calculateLimits();
 
+  const handlePageChange = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const renderPageNumbers = pages.map((number, index) => {
     if (number >= minPageNumberLimit && number <= maxPageNumberLimit) {
       return (
         <PaginationLink
           key={index}
           href={`?page=${number}`}
+          onClick={handlePageChange}
           isActive={currentPage === number}
           className={cn(
             "hidden md:flex",
-
             currentPage === number
               ? "pointer-events-none"
               : "pointer-events-auto  hover:bg-color-white dark:hover:bg-color-hitam"
@@ -86,6 +90,7 @@ export const CustomPagination: React.FC<CustomPaginationProps> = ({
                 href={`?page=${
                   currentPage + 5 >= totalPages ? totalPages : currentPage + 5
                 }`}
+                onClick={handlePageChange}
                 className="hidden md:block"
               >
                 <PaginationEllipsis />
@@ -108,6 +113,7 @@ export const CustomPagination: React.FC<CustomPaginationProps> = ({
             <PaginationItem>
               <Link
                 href={`?page=${currentPage - 5 <= 0 ? 1 : currentPage - 5}`}
+                onClick={handlePageChange}
                 className="hidden md:block"
               >
                 <PaginationEllipsis />
@@ -126,6 +132,7 @@ export const CustomPagination: React.FC<CustomPaginationProps> = ({
       <PaginationContent>
         <PaginationPrevious
           href={`?page=${currentPage - 1}`}
+          onClick={handlePageChange}
           className={
             currentPage === 1
               ? "pointer-events-none"
@@ -137,6 +144,7 @@ export const CustomPagination: React.FC<CustomPaginationProps> = ({
         {pageIncrementBtn}
         <PaginationNext
           href={`?page=${currentPage + 1}`}
+          onClick={handlePageChange}
           className={
             currentPage === totalPages
               ? "pointer-events-none"

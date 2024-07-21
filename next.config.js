@@ -28,6 +28,7 @@ const nextConfig = {
       },
     ],
   },
+  // output: 'export',
 };
 
 module.exports = withPWA(nextConfig);

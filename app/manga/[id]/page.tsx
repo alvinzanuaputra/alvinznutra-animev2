@@ -1,13 +1,13 @@
 import { Metadata } from "next";
 
-import prisma from "@/lib/prisma";
+// import prisma from "@/lib/prisma";
 import MangaDetail from "@/components/manga-detail";
-import { authUserSession } from "@/lib/utils";
+// import { authUserSession } from "@/lib/utils";
 import { getMangaFullById } from "@/lib/apis";
 // import { HeroSmall } from "@/components/layout/hero-small";
-import { ButtonAddCollection } from "@/components/layout/button-add-collection";
-import { CommentSection } from "@/components/layout/comment-section";
-import { CommentInput } from "@/components/layout/comment-input";
+// import { ButtonAddCollection } from "@/components/layout/button-add-collection";
+// import { CommentSection } from "@/components/layout/comment-section";
+// import { CommentInput } from "@/components/layout/comment-input";
 
 import type { TFullManga } from "@/types";
 
@@ -27,33 +27,33 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 const Manga = async ({ params }: { params: { id: string } }) => {
   const dataManga: TFullManga = await getMangaFullById(params.id);
-  const user = await authUserSession();
-  const data = {
-    user_email: user?.email as string,
-    mal_id: params.id,
-    image_url: dataManga.data.images.webp.image_url,
-    title: dataManga.data.title,
-  };
+  // const user = await authUserSession();
+  // const data = {
+  //   user_email: user?.email as string,
+  //   mal_id: params.id,
+  //   image_url: dataManga.data.images.webp.image_url,
+  //   title: dataManga.data.title,
+  // };
 
-  const dataComment = {
-    username: user?.name as string,
-    user_email: user?.email as string,
-    user_image: user?.image as string,
-    mal_id: params.id,
-    title: dataManga.data.title,
-  };
+  // const dataComment = {
+  //   username: user?.name as string,
+  //   user_email: user?.email as string,
+  //   user_image: user?.image as string,
+  //   mal_id: params.id,
+  //   title: dataManga.data.title,
+  // };
 
-  const mangaCollection = await prisma.mangaCollection.findFirst({
-    where: { user_email: user?.email as string, mal_id: data.mal_id },
-  });
+  // const mangaCollection = await prisma.mangaCollection.findFirst({
+  //   where: { user_email: user?.email as string, mal_id: data.mal_id },
+  // });
   return (
     <>
       {/* <HeroSmall title={dataManga.data.title} genres={dataManga.data.genres} /> */}
-      {user && !mangaCollection && <ButtonAddCollection dataManga={data} />}
+      {/* {user && !mangaCollection && <ButtonAddCollection dataManga={data} />} */}
       <section className="rounded-md pt-2 px-2 pb-2 md:px-10 bg-color-white dark:bg-color-dark dark:text-color-primary text-color-hitam">
         <MangaDetail dataManga={dataManga} />
-        {user && <CommentInput dataManga={dataComment} />}
-        <CommentSection mal_id={params.id} />
+        {/* {user && <CommentInput dataManga={dataComment} />} */}
+        {/* <CommentSection mal_id={params.id} /> */}
       </section>
     </>
   );

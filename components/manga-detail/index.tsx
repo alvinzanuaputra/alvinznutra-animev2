@@ -20,7 +20,7 @@ const MangaDetail: FC<MangaDetailProps> = ({ dataManga }) => {
   arrayPath = path.split("/").filter(Boolean);
 
   return (
-    <>
+    <div className="mb-20">
       <div className="mb-4 bg-color-primary dark:bg-color-hitam text-left overflow-x-hidden animate__animated animate__fadeInUp animate__delay-0.3s">
 
         <Card className="py-2 min-h-full w-full bg-color-white dark:bg-color-hitam justify-between col-span-1">
@@ -122,7 +122,7 @@ const MangaDetail: FC<MangaDetailProps> = ({ dataManga }) => {
       >
         Kunjungi situs website resmi manga
       </Link>
-    </>
+    </div>
   );
 };
 

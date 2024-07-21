@@ -17,9 +17,12 @@ const Dashboard = async (props: Props) => {
   return (
     <div className="animate__animated animate__fadeInUp animate__delay-0.3s">
 
-      <div className="flex items-center text-xs border-color-third border px-4">
+      {/* <div className="flex items-center text-xs border-color-third border px-4">
+        <p className="px-2 py-2">Beberapa fitur mungkin belum berfungsi <span className="text-color-accent">!!!</span></p>
+      </div> */}
+      {/* <div className="flex items-center text-xs border-color-third border px-4">
         <p className="px-2 py-2">Hallo selamat datang kembali <span className="text-color-accent font-serif font-bold">&quot;{user?.name}&quot; </span> </p>
-      </div>
+      </div> */}
 
       <div className="absolute mx-32 pt-4">
         <h5 className="text-color-accent font-bold text-[10px] underline">PROFIL</h5>
@@ -42,7 +45,7 @@ const Dashboard = async (props: Props) => {
       <div className="mt-4 gap-4 border border-color-third">
 
         <div className="px-6 hover:bg-color-primary dark:hover:bg-color-abuabu duration-500 transition-all">
-          <Link href="/users/dashboard/collections" className="hover:bg-color-third duration-500 transition-all">
+          <Link href="/users/dashboard/comingsoon" className="hover:bg-color-third duration-500 transition-all">
             <div className="py-4 flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#eeee" className="fill-color-hitam dark:fill-color-white" viewBox="0 0 256 256"><path d="M83.19,174.4a8,8,0,0,0,11.21-1.6,52,52,0,0,1,83.2,0,8,8,0,1,0,12.8-9.6A67.88,67.88,0,0,0,163,141.51a40,40,0,1,0-53.94,0A67.88,67.88,0,0,0,81.6,163.2,8,8,0,0,0,83.19,174.4ZM112,112a24,24,0,1,1,24,24A24,24,0,0,1,112,112Zm96-88H64A16,16,0,0,0,48,40V64H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v24a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V40A16,16,0,0,0,208,24Zm0,192H64V40H208Z"></path></svg>
               <div>
@@ -51,10 +54,19 @@ const Dashboard = async (props: Props) => {
               </div>
             </div>
           </Link>
+          {/* <Link href="/users/dashboard/collections" className="hover:bg-color-third duration-500 transition-all">
+            <div className="py-4 flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#eeee" className="fill-color-hitam dark:fill-color-white" viewBox="0 0 256 256"><path d="M83.19,174.4a8,8,0,0,0,11.21-1.6,52,52,0,0,1,83.2,0,8,8,0,1,0,12.8-9.6A67.88,67.88,0,0,0,163,141.51a40,40,0,1,0-53.94,0A67.88,67.88,0,0,0,81.6,163.2,8,8,0,0,0,83.19,174.4ZM112,112a24,24,0,1,1,24,24A24,24,0,0,1,112,112Zm96-88H64A16,16,0,0,0,48,40V64H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v40H32a8,8,0,0,0,0,16H48v24a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V40A16,16,0,0,0,208,24Zm0,192H64V40H208Z"></path></svg>
+              <div>
+                <h4 className="font-bold text-[12px]">Koleksi saya</h4>
+                <p className="text-[12px]">Koleksi anime atau mangan yang pernah kamu tambahkan</p>
+              </div>
+            </div>
+          </Link> */}
         </div>
 
         <div className="hover:bg-color-primary px-6 dark:hover:bg-color-abuabu duration-500 transition-all">
-          <Link href="/users/dashboard/comments" className="hover:bg-color-third duration-500 transition-all">
+          <Link href="/users/dashboard/comingsoon" className="hover:bg-color-third duration-500 transition-all">
             <div className="py-4 flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#eeee" className="fill-color-hitam dark:fill-color-white" viewBox="0 0 256 256"><path d="M216,48H40A16,16,0,0,0,24,64V224a15.85,15.85,0,0,0,9.24,14.5A16.13,16.13,0,0,0,40,240a15.89,15.89,0,0,0,10.25-3.78.69.69,0,0,0,.13-.11L82.5,208H216a16,16,0,0,0,16-16V64A16,16,0,0,0,216,48ZM40,224h0ZM216,192H82.5a16,16,0,0,0-10.3,3.75l-.12.11L40,224V64H216ZM88,112a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H96A8,8,0,0,1,88,112Zm0,32a8,8,0,0,1,8-8h64a8,8,0,1,1,0,16H96A8,8,0,0,1,88,144Z"></path></svg>
               <div>
@@ -63,13 +75,20 @@ const Dashboard = async (props: Props) => {
               </div>
             </div>
           </Link>
+          {/* <Link href="/users/dashboard/comments" className="hover:bg-color-third duration-500 transition-all">
+            <div className="py-4 flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#eeee" className="fill-color-hitam dark:fill-color-white" viewBox="0 0 256 256"><path d="M216,48H40A16,16,0,0,0,24,64V224a15.85,15.85,0,0,0,9.24,14.5A16.13,16.13,0,0,0,40,240a15.89,15.89,0,0,0,10.25-3.78.69.69,0,0,0,.13-.11L82.5,208H216a16,16,0,0,0,16-16V64A16,16,0,0,0,216,48ZM40,224h0ZM216,192H82.5a16,16,0,0,0-10.3,3.75l-.12.11L40,224V64H216ZM88,112a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H96A8,8,0,0,1,88,112Zm0,32a8,8,0,0,1,8-8h64a8,8,0,1,1,0,16H96A8,8,0,0,1,88,144Z"></path></svg>
+              <div>
+                <h4 className="font-bold text-[12px]">Komentar saya</h4>
+                <p className="text-[12px]">Daftar komentar yang pernah kamu tambahkan</p>
+              </div>
+            </div>
+          </Link> */}
         </div>
       </div>
 
-      <div className="pt-2 flex items-center justify-center">
-        <p className="dark:text-color-blue text-color-hitam font-bold text-xs">
-          Segera Datang
-        </p>
+      <div className="text-center py-1 text-xs  px-4">
+        <p className="px-2 py-2">Beberapa fitur mungkin belum berfungsi <span className="text-color-accent">!!!</span></p>
       </div>
 
       <div className="flex justify-center items-center">

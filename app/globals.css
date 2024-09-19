@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Menyembunyikan scrollbar vertikal di seluruh halaman */
+/* Atau menyembunyikan scrollbar di semua elemen */
+* {
+    scrollbar-width: none;
+    /* Untuk Firefox */
+    -ms-overflow-style: none;
+    /* Untuk Internet Explorer dan Edge */
+}
+
+*::-webkit-scrollbar {
+    display: none;
+    /* Untuk Chrome, Safari, dan Opera */
+}
+
+
 .hover-image {
   transition: 0.5s ease all;
   -webkit-transition: 0.5s ease all;
